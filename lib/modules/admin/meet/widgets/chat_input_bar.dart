@@ -12,10 +12,7 @@ class ChatInputBar extends GetView<MeetController> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        border: Border(top: BorderSide(color: AppColors.divider)),
-      ),
+      color: AppColors.transparent,
       child: SafeArea(
         child: Row(
           children: [
@@ -25,26 +22,31 @@ class ChatInputBar extends GetView<MeetController> {
                   color: AppColors.surfaceLight,
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                    color: AppColors.divider.withValues(alpha: 0.5),
+                    color: AppColors.textSecondary.withValues(alpha: 0.5),
                   ),
                 ),
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextField(
-                        controller: controller.textController,
-                        onChanged: (text) =>
-                            controller.isTyping.value = text.isNotEmpty,
-                        style: const TextStyle(color: AppColors.textPrimary),
-                        minLines: 1,
-                        maxLines: 4,
-                        decoration: const InputDecoration(
-                          hintText: 'Type a message...',
-                          hintStyle: TextStyle(color: AppColors.textSecondary),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 10,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: TextField(
+                          controller: controller.textController,
+                          onChanged: (text) =>
+                              controller.isTyping.value = text.isNotEmpty,
+                          style: const TextStyle(color: AppColors.textPrimary),
+                          minLines: 1,
+                          maxLines: 4,
+                          decoration: const InputDecoration(
+                            hintText: 'Type a message...',
+                            hintStyle: TextStyle(
+                              color: AppColors.textSecondary,
+                            ),
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(vertical: 10),
                           ),
                         ),
                       ),
@@ -95,8 +97,11 @@ class ChatInputBar extends GetView<MeetController> {
                     width: isRec ? 56 : 48,
                     height: isRec ? 56 : 48,
                     decoration: BoxDecoration(
-                      color: isRec ? AppColors.error : AppColors.primary,
+                      color: isRec ? AppColors.error : AppColors.surfaceLight,
                       shape: BoxShape.circle,
+                      border: Border.all(
+                        color: AppColors.textSecondary.withValues(alpha: 0.5),
+                      ),
                       boxShadow: isRec
                           ? [
                               BoxShadow(
@@ -109,7 +114,7 @@ class ChatInputBar extends GetView<MeetController> {
                     ),
                     child: Icon(
                       isRec ? Icons.mic : Icons.mic_none,
-                      color: isRec ? Colors.white : AppColors.background,
+                      color: AppColors.textPrimary,
                     ),
                   );
                 }),

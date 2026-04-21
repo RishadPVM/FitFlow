@@ -104,7 +104,42 @@ class ChatPage extends GetView<MeetController> {
         );
       }),
       actions: [
-        IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.more_vert),
+          color: AppColors.surfaceLight,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          onSelected: (value) {
+            if (value == 'report') {
+              // TODO: Handle Report
+            } else if (value == 'block') {
+              // TODO: Handle Block
+            }
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 'report',
+              child: Row(
+                children: const [
+                  Icon(Icons.report, size: 20),
+                  SizedBox(width: 10),
+                  Text("Report"),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 'block',
+              child: Row(
+                children: const [
+                  Icon(Icons.block, size: 20),
+                  SizedBox(width: 10),
+                  Text("Block"),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
