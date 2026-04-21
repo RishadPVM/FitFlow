@@ -112,9 +112,9 @@ class ChatPage extends GetView<MeetController> {
           ),
           onSelected: (value) {
             if (value == 'report') {
-              // TODO: Handle Report
+              // add report api call
             } else if (value == 'block') {
-              // TODO: Handle Block
+              // add block api call
             }
           },
           itemBuilder: (context) => [

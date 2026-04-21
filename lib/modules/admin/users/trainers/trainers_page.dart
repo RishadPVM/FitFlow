@@ -1,7 +1,6 @@
 import 'package:fitflow/modules/admin/users/trainers/widget/add_trainer.dart';
 import 'package:fitflow/modules/admin/users/trainers/widget/empty_state.dart';
 import 'package:fitflow/modules/admin/users/trainers/widget/search_filtter.dart';
-import 'package:fitflow/modules/admin/users/trainers/widget/trainer_form.dart';
 import 'package:fitflow/modules/admin/users/trainers/widget/trainers_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -101,5 +100,4 @@ class TrainersPage extends GetView<AdminTrainerController> {
       );
     });
   }
-
 }

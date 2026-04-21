@@ -34,7 +34,6 @@ Widget attachBottomSheet() {
               label: "Camera",
               onTap: () {
                 Get.back();
-                // TODO: Camera action
               },
             ),
             _buildOption(
@@ -42,7 +41,6 @@ Widget attachBottomSheet() {
               label: "Gallery",
               onTap: () {
                 Get.back();
-                // TODO: Gallery action
               },
             ),
             _buildOption(
@@ -50,7 +48,6 @@ Widget attachBottomSheet() {
               label: "Document",
               onTap: () {
                 Get.back();
-                // TODO: Document action
               },
             ),
           ],
@@ -72,7 +69,7 @@ Widget _buildOption({
         Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: AppColors.textSecondary.withOpacity(0.1),
+            color: AppColors.textSecondary.withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: AppColors.textPrimary, size: 24),

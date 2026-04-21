@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import '../../../../core/services/storage_service.dart';
 
 // Dummy model for chart data
 class ChartData {
@@ -95,9 +94,24 @@ class OverviewController extends GetxController {
           {'label': 'Sun', 'value': 55.0},
         ],
         'liveActivity': [
-          {'userName': 'John Doe', 'action': 'Logged in', 'time': 'Just now', 'isEntry': true},
-          {'userName': 'Sarah Smith', 'action': 'Started workout', 'time': '5 min ago', 'isEntry': true},
-          {'userName': 'Mike Johnson', 'action': 'Left gym', 'time': '12 min ago', 'isEntry': false},
+          {
+            'userName': 'John Doe',
+            'action': 'Logged in',
+            'time': 'Just now',
+            'isEntry': true,
+          },
+          {
+            'userName': 'Sarah Smith',
+            'action': 'Started workout',
+            'time': '5 min ago',
+            'isEntry': true,
+          },
+          {
+            'userName': 'Mike Johnson',
+            'action': 'Left gym',
+            'time': '12 min ago',
+            'isEntry': false,
+          },
         ],
       };
 
@@ -109,11 +123,20 @@ class OverviewController extends GetxController {
       pendingUsersCount.value = response['pendingUsersCount'] as int;
 
       final rawChart = response['userGrowth'] as List;
-      userGrowthData.value = rawChart.map((e) => ChartData(e['label'], e['value'])).toList();
+      userGrowthData.value = rawChart
+          .map((e) => ChartData(e['label'], e['value']))
+          .toList();
 
       final rawActivity = response['liveActivity'] as List;
       liveActivityList.value = rawActivity
-          .map((e) => ActivityLog(e['userName'], e['action'], e['time'], e['isEntry']))
+          .map(
+            (e) => ActivityLog(
+              e['userName'],
+              e['action'],
+              e['time'],
+              e['isEntry'],
+            ),
+          )
           .toList();
 
       // 4. Save to local cache

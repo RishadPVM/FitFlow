@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-// import '../../../core/services/api_service.dart';
-import '../../../core/services/storage_service.dart';
+
 import '../../../routes/app_routes.dart';
 
 class UserDashboardController extends GetxController {
@@ -34,11 +33,11 @@ class UserDashboardController extends GetxController {
       // Mocking API delay
       await Future.delayed(const Duration(seconds: 2));
       final apiData = 'Chest & Triceps Focus\n4 Exercises - 45 mins';
-      
+
       // 3. Update state
       todayWorkout.value = apiData;
       isLoading.value = false;
-      
+
       // 4. Save to cache
       // _storage.write('today_workout', apiData);
     } catch (e) {

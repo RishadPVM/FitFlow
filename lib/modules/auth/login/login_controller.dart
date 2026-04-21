@@ -1,4 +1,3 @@
-import 'package:fitflow/core/services/storage_service.dart';
 import 'package:fitflow/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +24,7 @@ class LoginController extends GetxController {
         try {
           // final GoogleSignInAccount? account = await _googleSignIn.signIn();
           // print(account);
-        } catch(e) {
+        } catch (e) {
           // Fallback or Handle cancel
         }
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
