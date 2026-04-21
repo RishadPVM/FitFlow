@@ -1,20 +1,10 @@
-class GymContact {
-  final String id;
-  final String name;
-  final String role;
-  final String status;
 
-  GymContact({
-    required this.id,
-    required this.name,
-    required this.role,
-    this.status = 'Offline',
-  });
-}
+
+import 'package:fitflow/models/gym_model.dart';
 
 class ChatConversation {
   final String id;
-  final GymContact contact;
+  final GymModel contact;
   String lastMessage;
   String time;
   int unread;

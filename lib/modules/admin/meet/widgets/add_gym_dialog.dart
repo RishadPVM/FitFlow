@@ -10,7 +10,7 @@ class AddGymDialog extends GetView<MeetController> {
 
   @override
   Widget build(BuildContext context) {
-    // Reset search query when sheet opens
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.gymSearchQuery.value = '';
     });
@@ -53,7 +53,6 @@ class AddGymDialog extends GetView<MeetController> {
                   ),
                 );
               }
-
               return ListView.builder(
                 itemCount: gyms.length,
                 itemBuilder: (context, index) {

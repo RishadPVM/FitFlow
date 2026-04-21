@@ -1,6 +1,6 @@
 import 'package:fitflow/core/theme/app_colors.dart';
 import 'package:fitflow/core/theme/app_text_styles.dart';
-import 'package:fitflow/model/user_model.dart';
+import 'package:fitflow/models/user_model.dart';
 import 'package:fitflow/modules/admin/users/members/controller/admin_members_controller.dart';
 import 'package:fitflow/modules/admin/users/members/widget/edit_member.dart';
 import 'package:flutter/material.dart';
