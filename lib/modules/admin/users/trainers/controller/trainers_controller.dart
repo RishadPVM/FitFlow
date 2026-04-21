@@ -1,42 +1,8 @@
+import 'package:fitflow/model/trainer_model.dart';
 import 'package:get/get.dart';
 import '../../../../../core/theme/app_colors.dart';
 
-class TrainerModel {
-  final String id;
-  final String name;
-  final String email;
-  final String specialization;
-  final double rating;
-  final String status;
-  
-  TrainerModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.specialization,
-    required this.rating,
-    required this.status,
-  });
-
-  TrainerModel copyWith({
-    String? name,
-    String? email,
-    String? specialization,
-    double? rating,
-    String? status,
-  }) {
-    return TrainerModel(
-      id: id,
-      name: name ?? this.name,
-      email: email ?? this.email,
-      specialization: specialization ?? this.specialization,
-      rating: rating ?? this.rating,
-      status: status ?? this.status,
-    );
-  }
-}
-
-class TrainersController extends GetxController {
+class AdminTrainerController extends GetxController {
   final isLoading = true.obs;
   final trainers = <TrainerModel>[].obs;
   
@@ -44,6 +10,28 @@ class TrainersController extends GetxController {
   final searchQuery = ''.obs;
   final statusFilter = 'All'.obs;
   final specializationFilter = 'All'.obs;
+
+  // trainer Specialization
+  final List<String> trainerSpecialization = [
+    'Strength',
+    'Cardio',
+    'Yoga',
+    'CrossFit',
+    'General Fitness',
+  ];
+
+ final selectedTrainerSpecialization = 'Strength'.obs;
+
+ // trainer status
+ final List<String> trainerStatus = [
+  'Active',
+  'Inactive'];
+
+  // trainer joinQrCode
+   final joinTrainerQrCode = ''.obs;
+  
+  
+    
 
   // Filtered list
   List<TrainerModel> get filteredTrainers {
