@@ -5,7 +5,7 @@ import '../../../routes/app_routes.dart';
 
 class UserDashboardController extends GetxController {
   // final ApiService _api = Get.find<ApiService>();
-  final StorageService _storage = Get.find<StorageService>();
+  // final StorageService _storage = Get.find<StorageService>();
 
   final RxBool isLoading = true.obs;
   final RxString todayWorkout = ''.obs;
@@ -23,11 +23,11 @@ class UserDashboardController extends GetxController {
 
   Future<void> _loadDashboardData() async {
     // 1. Load from cache first
-    final cachedWorkout = _storage.read<String>('today_workout');
-    if (cachedWorkout != null) {
-      todayWorkout.value = cachedWorkout;
-      isLoading.value = false;
-    }
+    // final cachedWorkout = _storage.read<String>('today_workout');
+    // if (cachedWorkout != null) {
+    //   todayWorkout.value = cachedWorkout;
+    //   isLoading.value = false;
+    // }
 
     // 2. Fetch from API in background mapping to offline-first pattern
     try {
@@ -40,7 +40,7 @@ class UserDashboardController extends GetxController {
       isLoading.value = false;
       
       // 4. Save to cache
-      _storage.write('today_workout', apiData);
+      // _storage.write('today_workout', apiData);
     } catch (e) {
       // Fallback silently or show generic toast
       isLoading.value = false;
@@ -48,7 +48,7 @@ class UserDashboardController extends GetxController {
   }
 
   void logout() {
-    _storage.clearAll();
+    // _storage.clearAll();
     Get.offAllNamed(AppRoutes.roleSelection);
   }
 }

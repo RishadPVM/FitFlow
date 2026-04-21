@@ -2,7 +2,7 @@ class AppStrings {
   AppStrings._();
 
   // App Level
-  static const String appName = 'FitFlow / GymOS';
+  static const String appName = 'FitFlow';
   static const String appVersion = '1.0.0';
 
   // Auth / Role Selection
