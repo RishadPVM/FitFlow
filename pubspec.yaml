@@ -33,10 +33,13 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.3
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
-  image_path: "assets/appLogo/app_logo.PNG"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+  image_path: "assets/appLogo/app_launcher.PNG"
+  adaptive_icon_background: "#000000"
+  adaptive_icon_foreground: "assets/appLogo/app_launcher.PNG"
+  remove_alpha_ios: true
+  # min_sdk_android: 21 # android min sdk min:16, default 21
 
 # The following section is specific to Flutter packages.
 flutter:

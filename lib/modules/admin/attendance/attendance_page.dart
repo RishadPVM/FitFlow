@@ -1,3 +1,4 @@
+import 'package:fitflow/modules/admin/attendance/widget/attendance_header.dart';
 import 'package:fitflow/modules/admin/attendance/widget/manual_entry_sheet.dart';
 import 'package:fitflow/modules/admin/attendance/widget/qr_section.dart';
 import 'package:flutter/material.dart';
@@ -26,66 +27,7 @@ class AttendancePage extends GetView<AttendanceController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // 🔹 HEADER
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Attendance", style: AppTextStyles.h3),
-                        const SizedBox(height: 6),
-                        Obx(
-                          () => Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.primaryBlue.withValues(
-                                alpha: 0.1,
-                              ),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              "${controller.totalPresentCount.value} Present Today",
-                              style: AppTextStyles.caption.copyWith(
-                                color: AppColors.primaryBlue,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    // 🔥 SESSION BUTTON
-                    Obx(
-                      () => ElevatedButton(
-                        onPressed: controller.isSessionActive.value
-                            ? controller.stopSession
-                            : controller.startSession,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: controller.isSessionActive.value
-                              ? Colors.red
-                              : AppColors.primaryBlue,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 12,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Text(
-                          controller.isSessionActive.value ? "Stop" : "Start",
-                          style: AppTextStyles.buttonText.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                attendanceHeader(controller),
 
                 const Spacer(),
 

@@ -17,9 +17,14 @@ class QRSection extends GetView<AttendanceController> {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
-              const Icon(Icons.pause_circle, size: 60, color: Colors.grey),
+              IconButton(
+                icon: const Icon(Icons.play_circle),
+                iconSize: 60,
+                color: Colors.grey,
+                onPressed: () => controller.startSession(),
+              ),
               const SizedBox(height: 12),
-              Text("Session Stopped"),
+              const Text("Session Stopped"),
             ],
           ),
         );
@@ -69,7 +74,7 @@ class QRBorderContainer extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryBlue.withValues(alpha:0.25),
+              color: AppColors.primaryBlue.withValues(alpha: 0.25),
               blurRadius: 40,
               spreadRadius: 4,
             ),
