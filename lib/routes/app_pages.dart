@@ -1,4 +1,4 @@
-import 'package:fitflow/modules/admin/profile/finance/finance_controller.dart';
+import 'package:fitflow/modules/admin/profile/finance/controller/finance_controller.dart';
 import 'package:get/get.dart';
 
 import '../modules/admin/admin_bottom_navigation/admin_bottom_nav_page.dart';

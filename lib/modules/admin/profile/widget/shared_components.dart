@@ -5,16 +5,9 @@ import 'package:fitflow/core/theme/app_text_styles.dart';
 Widget buildProfileCard({required Widget child}) {
   return Container(
     decoration: BoxDecoration(
-      color: AppColors.surfaceLight,
+      color: AppColors.surface,
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.02),
-          blurRadius: 10,
-          offset: const Offset(0, 4),
-        ),
-      ],
+      border: Border.all(color: AppColors.divider),
     ),
     child: child,
   );
@@ -25,8 +18,8 @@ Widget buildProfileSection({required String title, required List<Widget> childre
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Padding(
-        padding: const EdgeInsets.only(left: 8, bottom: 8),
-        child: Text(title, style: AppTextStyles.h3),
+        padding: const EdgeInsets.only(left: 4, bottom: 12),
+        child: Text(title, style: AppTextStyles.h3.copyWith(fontWeight: FontWeight.bold)),
       ),
       buildProfileCard(
         child: Column(
@@ -45,19 +38,49 @@ Widget buildProfileListTile({
   Widget? trailing,
   VoidCallback? onTap,
 }) {
-  return ListTile(
-    leading: Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: (color ?? AppColors.textPrimary).withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Icon(icon, color: color ?? AppColors.textPrimary, size: 20),
-    ),
-    title: Text(title, style: AppTextStyles.bodyMedium.copyWith(color: color ?? AppColors.textPrimary, fontWeight: FontWeight.bold)),
-    subtitle: subtitle != null ? Text(subtitle, style: AppTextStyles.caption) : null,
-    trailing: trailing ?? const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
+  final iconColor = color ?? AppColors.textPrimary;
+  
+  return InkWell(
     onTap: onTap,
-    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+    borderRadius: BorderRadius.circular(16),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: iconColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: iconColor, size: 22),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title, 
+                  style: AppTextStyles.bodyLarge.copyWith(
+                    color: iconColor, 
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                if (subtitle != null) ...[
+                  const SizedBox(height: 2),
+                  Text(subtitle, style: AppTextStyles.caption),
+                ]
+              ],
+            ),
+          ),
+          if (trailing != null) 
+            trailing 
+          else 
+            const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary, size: 20),
+        ],
+      ),
+    ),
   );
 }

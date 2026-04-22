@@ -16,29 +16,31 @@ class AdminProfilePage extends GetView<AdminProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text('Profile', style: AppTextStyles.h2),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: _buildAdminProfile(context),
+      body: SafeArea(child: _buildAdminProfile(context)),
     );
   }
 
   Widget _buildAdminProfile(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 48),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Text(
+            'Profile & Settings',
+            style: AppTextStyles.h1.copyWith(
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
+            ),
+          ),
+          const SizedBox(height: 24),
           buildAdminProfileHeader(controller),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           buildAdminAccountManagementSection(context, controller),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           buildAdminNotificationsSection(controller),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           buildAdminSupportSection(context, controller),
-          const SizedBox(height: 48),
         ],
       ),
     );
