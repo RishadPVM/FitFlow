@@ -83,7 +83,7 @@ class MembershipPlanPage extends StatelessWidget {
           Icon(
             Icons.inbox_outlined,
             size: 80,
-            color: AppColors.textSecondary.withOpacity(0.5),
+            color: AppColors.textSecondary.withValues(alpha: 0.5),
           ),
           const SizedBox(height: 16),
           Text(
@@ -132,7 +132,7 @@ class MembershipPlanPage extends StatelessWidget {
               Get.snackbar(
                 'Deleted',
                 'Plan deleted successfully.',
-                backgroundColor: AppColors.error.withOpacity(0.9),
+                backgroundColor: AppColors.error.withValues(alpha: 0.9),
                 colorText: Colors.white,
                 snackPosition: SnackPosition.BOTTOM,
               );

@@ -31,7 +31,7 @@ class MembershipPlanCard extends StatelessWidget {
         boxShadow: [
           if (plan.isPopular)
             BoxShadow(
-              color: AppColors.primaryBlue.withOpacity(0.1),
+              color: AppColors.primaryBlue.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -101,8 +101,8 @@ class MembershipPlanCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: plan.isActive
-                    ? AppColors.success.withOpacity(0.1)
-                    : AppColors.error.withOpacity(0.1),
+                    ? AppColors.success.withValues(alpha: 0.1)
+                    : AppColors.error.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: plan.isActive ? AppColors.success : AppColors.error,
@@ -228,8 +228,8 @@ class MembershipPlanCard extends StatelessWidget {
               child: Switch(
                 value: plan.isActive,
                 onChanged: onToggleStatus,
-                activeColor: AppColors.primaryBlue,
-                activeTrackColor: AppColors.primaryBlue.withOpacity(0.3),
+                activeThumbColor: AppColors.primaryBlue,
+                activeTrackColor: AppColors.primaryBlue.withValues(alpha: 0.3),
                 inactiveThumbColor: AppColors.textSecondary,
                 inactiveTrackColor: AppColors.surfaceLight,
               ),

@@ -81,7 +81,7 @@ class _CreatePlanBottomSheetState extends State<CreatePlanBottomSheet> {
         Get.snackbar(
           'Validation Error',
           'Please add at least one feature.',
-          backgroundColor: AppColors.error.withOpacity(0.9),
+          backgroundColor: AppColors.error.withValues(alpha: 0.9),
           colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM,
         );
@@ -111,7 +111,7 @@ class _CreatePlanBottomSheetState extends State<CreatePlanBottomSheet> {
       Get.snackbar(
         'Success',
         widget.planToEdit != null ? 'Plan updated successfully' : 'Plan created successfully',
-        backgroundColor: AppColors.success.withOpacity(0.9),
+        backgroundColor: AppColors.success.withValues(alpha: 0.9),
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
       );
@@ -269,7 +269,7 @@ class _CreatePlanBottomSheetState extends State<CreatePlanBottomSheet> {
                       Switch(
                         value: _isActive,
                         onChanged: (val) => setState(() => _isActive = val),
-                        activeColor: AppColors.primaryBlue,
+                        activeThumbColor: AppColors.primaryBlue,
                       ),
                     ],
                   ),
@@ -280,7 +280,7 @@ class _CreatePlanBottomSheetState extends State<CreatePlanBottomSheet> {
                       Switch(
                         value: _isPopular,
                         onChanged: (val) => setState(() => _isPopular = val),
-                        activeColor: AppColors.primaryBlue,
+                        activeThumbColor: AppColors.primaryBlue,
                       ),
                     ],
                   ),

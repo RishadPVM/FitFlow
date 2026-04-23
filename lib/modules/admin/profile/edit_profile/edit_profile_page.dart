@@ -88,7 +88,7 @@ class EditProfilePage extends StatelessWidget {
                   trailing: Switch(
                     value: controller.is24Hours.value,
                     onChanged: (val) => controller.is24Hours.value = val,
-                    activeColor: AppColors.background,
+                    activeThumbColor: AppColors.background,
                     activeTrackColor: AppColors.primary,
                     inactiveThumbColor: AppColors.textSecondary,
                     inactiveTrackColor: AppColors.surfaceLight,
