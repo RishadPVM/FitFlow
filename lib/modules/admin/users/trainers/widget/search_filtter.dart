@@ -3,7 +3,7 @@ import 'package:fitflow/core/theme/app_text_styles.dart';
 import 'package:fitflow/modules/admin/users/trainers/controller/trainers_controller.dart';
 import 'package:flutter/material.dart';
 
-Widget searchFilterBar(TrainersController controller) {
+Widget searchFilterBar(AdminTrainerController controller) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -31,7 +31,7 @@ Widget searchFilterBar(TrainersController controller) {
 
 
   
-  Widget _buildSearchInput(TrainersController controller) {
+  Widget _buildSearchInput(AdminTrainerController controller) {
     return Container(
       height: 48,
       decoration: BoxDecoration(
@@ -53,7 +53,7 @@ Widget searchFilterBar(TrainersController controller) {
     );
   }
 
-  Widget _buildFiltersRow(TrainersController controller) {
+  Widget _buildFiltersRow(AdminTrainerController controller) {
     return Row(
       children: [
         _buildPremiumDropdown(

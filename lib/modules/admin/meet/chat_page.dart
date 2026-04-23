@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import 'meet_controller.dart';
@@ -23,8 +24,6 @@ class ChatPage extends GetView<MeetController> {
               return ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 itemCount: controller.chatMessages.length,
-                // Optional: to keep latest messages at bottom more easily, if reversed was used.
-                // Right now array appends to end so normal scroll works
                 itemBuilder: (context, index) {
                   final msg = controller.chatMessages[index];
                   return ChatBubble(message: msg);
@@ -52,15 +51,19 @@ class ChatPage extends GetView<MeetController> {
         if (partner == null) return const SizedBox();
         final contact = partner.contact;
         final isOnline = contact.status == 'Online';
-        
+
         return Row(
           children: [
             CircleAvatar(
               radius: 18,
               backgroundColor: AppColors.secondaryGreen.withValues(alpha: 0.1),
               child: Text(
-                contact.name[0], 
-                style: const TextStyle(color: AppColors.secondaryGreen, fontSize: 14, fontWeight: FontWeight.bold),
+                contact.name[0],
+                style: const TextStyle(
+                  color: AppColors.secondaryGreen,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -71,14 +74,20 @@ class ChatPage extends GetView<MeetController> {
                 children: [
                   Text(
                     contact.name,
-                    style: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+                    style: AppTextStyles.bodyLarge.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Row(
                     children: [
                       if (isOnline) ...[
                         Container(
-                          width: 8, height: 8,
-                          decoration: const BoxDecoration(color: AppColors.success, shape: BoxShape.circle),
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: AppColors.success,
+                            shape: BoxShape.circle,
+                          ),
                         ),
                         const SizedBox(width: 4),
                       ],
@@ -87,7 +96,7 @@ class ChatPage extends GetView<MeetController> {
                         style: AppTextStyles.caption,
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -95,9 +104,42 @@ class ChatPage extends GetView<MeetController> {
         );
       }),
       actions: [
-        IconButton(icon: const Icon(Icons.videocam_outlined), onPressed: () {}),
-        IconButton(icon: const Icon(Icons.call_outlined), onPressed: () {}),
-        IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.more_vert),
+          color: AppColors.surfaceLight,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          onSelected: (value) {
+            if (value == 'report') {
+              // add report api call
+            } else if (value == 'block') {
+              // add block api call
+            }
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 'report',
+              child: Row(
+                children: const [
+                  Icon(Icons.report, size: 20),
+                  SizedBox(width: 10),
+                  Text("Report"),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 'block',
+              child: Row(
+                children: const [
+                  Icon(Icons.block, size: 20),
+                  SizedBox(width: 10),
+                  Text("Block"),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -120,10 +162,7 @@ class ChatPage extends GetView<MeetController> {
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            'No messages yet',
-            style: AppTextStyles.h3,
-          ),
+          Text('No messages yet', style: AppTextStyles.h3),
           const SizedBox(height: 8),
           Text(
             'Say hello to start the conversation!',

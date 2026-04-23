@@ -3,7 +3,7 @@ import 'package:fitflow/core/theme/app_text_styles.dart';
 import 'package:fitflow/modules/admin/users/members/controller/admin_members_controller.dart';
 import 'package:flutter/material.dart';
 
-Widget searchFilterBar(AdminMembersController controller, bool isMobile) {
+Widget searchFilterBar(AdminMembersController controller) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -18,21 +18,13 @@ Widget searchFilterBar(AdminMembersController controller, bool isMobile) {
         ),
       ],
     ),
-    child: isMobile
-        ? Column(
-            children: [
-              _buildSearchInput(controller),
-              const SizedBox(height: 12),
-              _buildFiltersRow(controller),
-            ],
-          )
-        : Row(
-            children: [
-              Expanded(child: _buildSearchInput(controller)),
-              const SizedBox(width: 16),
-              _buildFiltersRow(controller),
-            ],
-          ),
+    child: Column(
+      children: [
+        _buildSearchInput(controller),
+        const SizedBox(height: 12),
+        _buildFiltersRow(controller),
+      ],
+    ),
   );
 }
 

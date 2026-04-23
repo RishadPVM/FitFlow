@@ -1,11 +1,12 @@
 import 'package:fitflow/core/theme/app_colors.dart';
 import 'package:fitflow/core/theme/app_text_styles.dart';
+import 'package:fitflow/models/user_model.dart';
 import 'package:fitflow/modules/admin/users/members/controller/admin_members_controller.dart';
-import 'package:fitflow/modules/admin/users/members/widget/member_form.dart';
+import 'package:fitflow/modules/admin/users/members/widget/edit_member.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Widget membersMobileView(AdminMembersController controller) {
+Widget membersListView(AdminMembersController controller) {
   return ListView.builder(
     itemCount: controller.filteredUsers.length,
     padding: const EdgeInsets.only(bottom: 24),
@@ -90,7 +91,11 @@ Widget membersMobileView(AdminMembersController controller) {
                     buildCircleAction(
                       icon: Icons.edit_rounded,
                       color: AppColors.primaryBlue,
-                      onTap: () => showEditMemberUI(Get.context!, true, user, controller),
+                      onTap: () => showEditMemberUI(
+                        Get.context!,
+                        user,
+                        controller,
+                      ),
                     ),
                     const SizedBox(width: 8),
                     buildCircleAction(
@@ -109,122 +114,6 @@ Widget membersMobileView(AdminMembersController controller) {
   );
 }
 
-Widget membersDesktopView(BuildContext context, AdminMembersController controller) {
-  return Container(
-    decoration: BoxDecoration(
-      color: AppColors.surfaceLight,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
-    ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width - 320,
-            ),
-            child: DataTable(
-              headingRowColor: WidgetStateProperty.all(
-                AppColors.background.withValues(alpha: 0.5),
-              ),
-              headingTextStyle: AppTextStyles.bodyMedium.copyWith(
-                fontWeight: FontWeight.bold,
-                color: AppColors.textPrimary,
-              ),
-              dataTextStyle: AppTextStyles.bodyMedium,
-              dividerThickness: 1,
-              columnSpacing: 40,
-              horizontalMargin: 24,
-              columns: const [
-                DataColumn(label: Text('MEMBER')),
-                DataColumn(label: Text('EMAIL')),
-                DataColumn(label: Text('PLAN')),
-                DataColumn(label: Text('STATUS')),
-                DataColumn(label: Text('ACTIONS')),
-              ],
-              rows: controller.filteredUsers.map((user) {
-                return DataRow(
-                  cells: [
-                    DataCell(
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 14,
-                            backgroundColor: AppColors.primaryBlue.withValues(
-                              alpha: 0.1,
-                            ),
-                            child: Text(
-                              user.name[0],
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryBlue,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            user.name,
-                            style: const TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
-                    ),
-                    DataCell(Text(user.email)),
-                    DataCell(
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryBlue.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          user.plan,
-                          style: const TextStyle(
-                            color: AppColors.primaryBlue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    DataCell(buildStatusChip(user.status)),
-                    DataCell(
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.edit_rounded,
-                              color: AppColors.primaryBlue,
-                              size: 20,
-                            ),
-                            onPressed: () => showEditMemberUI(context, false, user, controller),
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.delete_outline_rounded,
-                              color: AppColors.error,
-                              size: 20,
-                            ),
-                            onPressed: () => showDeleteConfirmation(user, controller),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
-}
 
 Widget buildCircleAction({
   required IconData icon,

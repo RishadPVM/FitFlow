@@ -23,4 +23,5 @@ class AppColors {
   // Utility
   static const Color divider = Color(0xFF333333);
   static const Color cardShadow = Color(0x33000000);
+  static const Color transparent = Color.fromARGB(0, 0, 0, 0);
 }

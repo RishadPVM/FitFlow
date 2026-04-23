@@ -1,9 +1,8 @@
-import 'package:fitflow/core/services/storage_service.dart';
 import 'package:fitflow/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  final StorageService _storage = Get.find<StorageService>();
+  // final StorageService _storage = Get.find<StorageService>();
 
   final RxString currentRole = ''.obs;
   final RxBool isLoading = false.obs;
@@ -25,15 +24,15 @@ class LoginController extends GetxController {
         try {
           // final GoogleSignInAccount? account = await _googleSignIn.signIn();
           // print(account);
-        } catch(e) {
+        } catch (e) {
           // Fallback or Handle cancel
         }
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
-        await _storage.write('token', 'user_mock_token');
+        // await _storage.write('token', 'user_mock_token');
         Get.offAllNamed(AppRoutes.userDashboard);
       } else if (currentRole.value == 'admin') {
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
-        await _storage.write('token', 'admin_mock_token');
+        // await _storage.write('token', 'admin_mock_token');
         Get.offAllNamed(AppRoutes.adminDashboard);
       } else {
         // Trainer route

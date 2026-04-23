@@ -1,6 +1,6 @@
+import 'package:fitflow/modules/admin/users/trainers/widget/add_trainer.dart';
 import 'package:fitflow/modules/admin/users/trainers/widget/empty_state.dart';
 import 'package:fitflow/modules/admin/users/trainers/widget/search_filtter.dart';
-import 'package:fitflow/modules/admin/users/trainers/widget/trainer_form.dart';
 import 'package:fitflow/modules/admin/users/trainers/widget/trainers_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import 'controller/trainers_controller.dart';
 
-class TrainersPage extends GetView<TrainersController> {
+class TrainersPage extends GetView<AdminTrainerController> {
   const TrainersPage({super.key});
 
   @override
@@ -54,7 +54,8 @@ class TrainersPage extends GetView<TrainersController> {
                   ],
                 ),
                 ElevatedButton.icon(
-                  onPressed: () => _showAddTrainerUI(context, controller),
+                  // onPressed: () =>  showTrainerForm(context, null, controller),
+                  onPressed: () => showAddTrainerUI(context, controller),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryBlue,
                     foregroundColor: Colors.white,
@@ -98,9 +99,5 @@ class TrainersPage extends GetView<TrainersController> {
         ),
       );
     });
-  }
-
-  void _showAddTrainerUI(BuildContext context, TrainersController controller) {
-    showTrainerForm(context, null, controller);
   }
 }

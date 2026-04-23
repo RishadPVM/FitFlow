@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import '../../../../core/services/storage_service.dart';
+
 import '../../../../routes/app_routes.dart';
 
 class AdminBottomNavController extends GetxController {
-  final StorageService _storage = Get.find<StorageService>();
+  // final StorageService _storage = Get.find<StorageService>();
 
   final RxInt selectedIndex = 0.obs;
 
@@ -12,7 +12,7 @@ class AdminBottomNavController extends GetxController {
   }
 
   void logout() {
-    _storage.clearAll();
+    // _storage.clearAll();
     Get.offAllNamed(AppRoutes.roleSelection);
   }
 }

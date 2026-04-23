@@ -14,7 +14,8 @@ class MemberModel {
 
 class AttendanceController extends GetxController {
   // 🔹 SESSION STATE
-  final isSessionActive = true.obs;
+  final isSessionActive = false.obs;
+  final isScreenLocked = false.obs;
 
   // 🔹 QR SYSTEM
   final sessionId = ''.obs;
@@ -60,10 +61,6 @@ class AttendanceController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    startSession();
-
-    // demo data
     presentMemberIds.addAll(['1', '5']);
     totalPresentCount.value = presentMemberIds.length;
   }
@@ -85,6 +82,18 @@ class AttendanceController extends GetxController {
     isSessionActive.value = false;
     _qrTimer?.cancel();
   }
+
+  void screenLock() {
+    isScreenLocked.value = true;
+    // hide bottom navigation bar
+  }
+
+  void screenUnlock() {
+    // add biometric check
+    isScreenLocked.value = false;
+    // show bottom navigation bar
+  }
+    
 
   // 🔥 QR GENERATION
   void _generateNewSession() {
@@ -148,7 +157,7 @@ class AttendanceController extends GetxController {
     Get.snackbar(
       'Success',
       'Marked: ${member.name}',
-      backgroundColor: AppColors.success.withValues(alpha:0.1),
+      backgroundColor: AppColors.success.withValues(alpha: 0.1),
     );
   }
 }

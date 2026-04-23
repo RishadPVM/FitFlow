@@ -1,19 +1,20 @@
-import 'package:get/get.dart';
 import 'package:fitflow/routes/app_routes.dart';
-import 'package:fitflow/core/services/storage_service.dart';
+import 'package:get/get.dart';
 
 class AdminProfileController extends GetxController {
-  final StorageService _storage = Get.find<StorageService>();
+  // final StorageService _storage = Get.find<StorageService>();
 
-  // final RxString userRole = 'User'.obs; 
+  // final RxString userRole = 'User'.obs;
   final RxString userName = 'Mark Johnson'.obs;
   final RxString userEmail = 'admin@titanfitness.com'.obs;
   final RxString gymName = 'Titan Fitness Elite'.obs;
   final RxString phone = '+1 (555) 987-6543'.obs;
   final RxString address = '123 Muscle Ave, Fitness City'.obs;
   final RxString workingHours = '06:00 AM - 11:00 PM'.obs;
-  final RxString aboutGym = 'Premium fitness center dedicated to strength training and holistic health.'.obs;
-  
+  final RxString aboutGym =
+      'Premium fitness center dedicated to strength training and holistic health.'
+          .obs;
+
   // Finance Stats
   final RxString totalRevenue = '\$12,450.00'.obs;
   final RxString monthlyEarnings = '\$4,200.00'.obs;
@@ -43,7 +44,7 @@ class AdminProfileController extends GetxController {
   }
 
   void logout() {
-    _storage.clearAll();
+    // _storage.clearAll();
     Get.offAllNamed(AppRoutes.roleSelection);
   }
 }

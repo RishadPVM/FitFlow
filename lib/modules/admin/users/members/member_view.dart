@@ -1,11 +1,11 @@
+import 'package:fitflow/common/widgets/app_loader.dart';
 import 'package:fitflow/core/theme/app_colors.dart';
 import 'package:fitflow/core/theme/app_text_styles.dart';
 import 'package:fitflow/modules/admin/users/members/controller/admin_members_controller.dart';
+import 'package:fitflow/modules/admin/users/members/widget/add_member.dart';
 import 'package:fitflow/modules/admin/users/members/widget/empty_state.dart';
-import 'package:fitflow/modules/admin/users/members/widget/member_form.dart';
-import 'package:fitflow/modules/admin/users/members/widget/search_filter.dart';
 import 'package:fitflow/modules/admin/users/members/widget/members_list_view.dart';
-import 'package:fitflow/common/widgets/app_loader.dart';
+import 'package:fitflow/modules/admin/users/members/widget/search_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,11 +19,8 @@ class MembersContent extends GetView<AdminMembersController> {
         return const Center(child: AppLoader());
       }
 
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          bool isMobile = constraints.maxWidth < 800;
           return Padding(
-            padding: EdgeInsets.all(isMobile ? 16.0 : 24.0),
+            padding: EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,7 +33,7 @@ class MembersContent extends GetView<AdminMembersController> {
                       children: [
                         Text(
                           'Members',
-                          style: isMobile ? AppTextStyles.h3 : AppTextStyles.h2,
+                          style: AppTextStyles.h3,
                         ),
                         const SizedBox(height: 4),
                         Container(
@@ -59,14 +56,14 @@ class MembersContent extends GetView<AdminMembersController> {
                       ],
                     ),
                     ElevatedButton.icon(
-                      onPressed: () => showAddMemberUI(context, isMobile, controller),
+                      onPressed: () => showAddMemberUI(context, controller),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryBlue,
                         foregroundColor: Colors.white,
                         elevation: 0,
                         padding: EdgeInsets.symmetric(
-                          horizontal: isMobile ? 16 : 24,
-                          vertical: isMobile ? 12 : 16,
+                          horizontal: 16,
+                          vertical: 12,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -76,15 +73,15 @@ class MembersContent extends GetView<AdminMembersController> {
                       label: Text(
                         'Add Member',
                         style: AppTextStyles.buttonText.copyWith(
-                          fontSize: isMobile ? 14 : 16,
+                          fontSize: 14,
                           color: Colors.white,
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: isMobile ? 20 : 32),
-                searchFilterBar(controller, isMobile),
+                SizedBox(height: 20),
+                searchFilterBar(controller),
                 const SizedBox(height: 24),
                 if (controller.filteredUsers.length !=
                     controller.totalUsersCount)
@@ -100,15 +97,12 @@ class MembersContent extends GetView<AdminMembersController> {
                 Expanded(
                   child: controller.filteredUsers.isEmpty
                       ? membersEmptyState(controller)
-                      : isMobile
-                      ? membersMobileView(controller)
-                      : membersDesktopView(context, controller),
+                      : membersListView(controller),
                 ),
               ],
             ),
           );
-        },
-      );
+
     });
   }
 }

@@ -4,7 +4,7 @@ import 'package:fitflow/core/theme/app_text_styles.dart';
 import 'package:fitflow/modules/admin/users/trainers/controller/trainers_controller.dart';
 import 'package:flutter/material.dart';
 
-Widget trainersEmptyState(TrainersController controller) {
+Widget trainersEmptyState(AdminTrainerController controller) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

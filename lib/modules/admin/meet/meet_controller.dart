@@ -1,6 +1,7 @@
+import 'package:fitflow/models/gym_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'models/meet_models.dart';
+import '../../../models/meet_models.dart';
 
 class MeetController extends GetxController {
   // Meet Home State
@@ -8,7 +9,7 @@ class MeetController extends GetxController {
   final searchQuery = ''.obs;
   
   // Available Gyms for "Add chat"
-  final availableGyms = <GymContact>[].obs;
+  final availableGyms = <GymModel>[].obs;
   final gymSearchQuery = ''.obs;
 
   // Active Chat State
@@ -35,7 +36,7 @@ class MeetController extends GetxController {
     activeMeets.value = [
       ChatConversation(
         id: 'c1',
-        contact: GymContact(
+        contact: GymModel(
           id: 'g1',
           name: 'Titan Fitness Elite',
           role: 'Gym Partner',
@@ -47,7 +48,7 @@ class MeetController extends GetxController {
       ),
       ChatConversation(
         id: 'c2',
-        contact: GymContact(
+        contact: GymModel(
           id: 'g2',
           name: 'Iron Core Gym',
           role: 'Gym Branch',
@@ -62,9 +63,9 @@ class MeetController extends GetxController {
 
   void _loadAvailableGyms() {
     availableGyms.value = [
-      GymContact(id: 'g3', name: 'Apex Performance Center', role: 'Gym Network'),
-      GymContact(id: 'g4', name: 'Velocity Fitness', role: 'Gym Partner'),
-      GymContact(id: 'g5', name: 'Zenith Wellness, East', role: 'Gym Branch'),
+      GymModel(id: 'g3', name: 'Apex Performance Center', role: 'Gym Network'),
+      GymModel(id: 'g4', name: 'Velocity Fitness', role: 'Gym Partner'),
+      GymModel(id: 'g5', name: 'Zenith Wellness, East', role: 'Gym Branch'),
     ];
   }
 
@@ -75,7 +76,7 @@ class MeetController extends GetxController {
     ).toList();
   }
 
-  List<GymContact> get filteredAvailableGyms {
+  List<GymModel> get filteredAvailableGyms {
     if (gymSearchQuery.value.trim().isEmpty) return availableGyms;
     return availableGyms.where((gym) => 
       gym.name.toLowerCase().contains(gymSearchQuery.value.toLowerCase())
@@ -92,7 +93,7 @@ class MeetController extends GetxController {
     _loadMockMessages();
   }
 
-  void startNewChat(GymContact gym) {
+  void startNewChat(GymModel gym) {
     // Check if chat already exists
     final exists = activeMeets.firstWhereOrNull((m) => m.contact.id == gym.id);
     if (exists != null) {
