@@ -4,6 +4,7 @@ abstract class AppRoutes {
   static const String roleSelection = '/role-selection';
   static const String login = '/login';
   
-  static const String userDashboard = '/user/dashboard';
+  static const String userBottomNav = '/user/dashboard';
+  static const String chatScreen = '/user/chat-screen';
   static const String adminDashboard = '/admin/dashboard';
 }

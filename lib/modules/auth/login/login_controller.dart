@@ -29,7 +29,7 @@ class LoginController extends GetxController {
         }
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
         // await _storage.write('token', 'user_mock_token');
-        Get.offAllNamed(AppRoutes.userDashboard);
+        Get.offAllNamed(AppRoutes.userBottomNav);
       } else if (currentRole.value == 'admin') {
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
         // await _storage.write('token', 'admin_mock_token');

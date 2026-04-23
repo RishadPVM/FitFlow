@@ -11,12 +11,16 @@ import '../modules/admin/users/members/controller/admin_members_controller.dart'
 import '../modules/admin/users/trainers/controller/trainers_controller.dart';
 import '../modules/auth/login/login_controller.dart';
 import '../modules/auth/login/login_page.dart';
-import '../modules/chat/chat_controller.dart';
+import '../modules/user/user_bottom_navigation/user_bottom_nav_page.dart';
+import '../modules/user/user_bottom_navigation/user_bottom_nav_controller.dart';
+import '../modules/user/home/home_controller.dart';
+import '../modules/user/meet/meet_controller.dart';
+import '../modules/user/goals/goals_controller.dart';
+import '../modules/user/profile/profile_controller.dart';
+import '../modules/user/meet/user_chat_screen.dart';
 import '../modules/role_selection/role_selection_controller.dart';
-// Modules
+  // Modules
 import '../modules/role_selection/role_selection_page.dart';
-import '../modules/user/dashboard/user_dashboard_controller.dart';
-import '../modules/user/dashboard/user_dashboard_page.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -40,14 +44,19 @@ class AppPages {
       }),
     ),
     GetPage(
-      name: AppRoutes.userDashboard,
-      page: () => const UserDashboardPage(),
+      name: AppRoutes.userBottomNav,
+      page: () => const UserBottomNavPage(),
       binding: BindingsBuilder(() {
-        Get.lazyPut<UserDashboardController>(() => UserDashboardController());
-        Get.lazyPut<ChatController>(() => ChatController());
-        Get.lazyPut<AdminProfileController>(() => AdminProfileController());
-        Get.lazyPut<FinanceController>(() => FinanceController());
+        Get.lazyPut<UserBottomNavController>(() => UserBottomNavController());
+        Get.lazyPut<UserHomeController>(() => UserHomeController());
+        Get.lazyPut<UserMeetController>(() => UserMeetController());
+        Get.lazyPut<GoalsController>(() => GoalsController());
+        Get.lazyPut<UserProfileController>(() => UserProfileController());
       }),
+    ),
+    GetPage(
+      name: AppRoutes.chatScreen,
+      page: () => const UserChatScreen(),
     ),
     GetPage(
       name: AppRoutes.adminDashboard,
@@ -60,7 +69,7 @@ class AppPages {
         Get.lazyPut<AdminTrainerController>(() => AdminTrainerController());
         Get.lazyPut<AttendanceController>(() => AttendanceController());
         Get.lazyPut<FinanceController>(() => FinanceController());
-        Get.lazyPut<ChatController>(() => ChatController());
+        // Get.lazyPut<UserChatController>(() => UserChatController());
         Get.lazyPut<MeetController>(() => MeetController());
         Get.lazyPut<AdminProfileController>(() => AdminProfileController());
       }),

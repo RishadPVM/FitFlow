@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_text_styles.dart';
-import 'chat_controller.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../common/widgets/empty_state_widget.dart';
+import 'meet_controller.dart';
+import '../../../routes/app_routes.dart';
 
-class ChatListPage extends GetView<ChatController> {
-  const ChatListPage({super.key});
+class UserMeetPage extends GetView<UserMeetController> {
+  const UserMeetPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Messages', style: AppTextStyles.h2),
+        title: Text('Meet', style: AppTextStyles.h2),
         elevation: 0,
         backgroundColor: Colors.transparent,
         actions: [
@@ -20,7 +22,11 @@ class ChatListPage extends GetView<ChatController> {
       ),
       body: Obx(() {
         if (controller.activeChats.isEmpty) {
-          return _buildEmptyState();
+          return const EmptyStateWidget(
+            icon: Icons.chat_bubble_outline_rounded,
+            title: 'No messages yet',
+            message: 'Connect with your gym to start chatting.',
+          );
         }
 
         return ListView.builder(
@@ -40,7 +46,7 @@ class ChatListPage extends GetView<ChatController> {
     
     return InkWell(
       onTap: () {
-        // Navigate to 1:1 chat detail
+        Get.toNamed(AppRoutes.chatScreen, arguments: chat);
       },
       borderRadius: BorderRadius.circular(16),
       child: Container(
@@ -145,21 +151,6 @@ class ChatListPage extends GetView<ChatController> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildEmptyState() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.chat_bubble_outline_rounded, size: 64, color: AppColors.textSecondary.withValues(alpha: 0.3)),
-          const SizedBox(height: 16),
-          Text('No messages yet', style: AppTextStyles.h3),
-          const SizedBox(height: 8),
-          Text('Connect with your trainer or gym community', style: AppTextStyles.bodyMedium),
-        ],
       ),
     );
   }
