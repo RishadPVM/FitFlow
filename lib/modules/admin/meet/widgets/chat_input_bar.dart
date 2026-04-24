@@ -3,10 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../meet_controller.dart';
 
-class ChatInputBar extends GetView<MeetController> {
-  const ChatInputBar({super.key});
+class ChatInputBar extends StatelessWidget {
+  final TextEditingController? textController;
+  final RxBool isTyping;
+  final RxBool isRecording;
+  final VoidCallback? onSend;
+  // final VoidCallback? onAttach;
+  const ChatInputBar({
+    super.key,
+    this.textController,
+    required this.isTyping,
+    required this.isRecording,
+    this.onSend,
+    // this.onAttach,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +42,9 @@ class ChatInputBar extends GetView<MeetController> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: TextField(
-                          controller: controller.textController,
+                          controller: textController,
                           onChanged: (text) =>
-                              controller.isTyping.value = text.isNotEmpty,
+                              isTyping.value = text.isNotEmpty,
                           style: const TextStyle(color: AppColors.textPrimary),
                           minLines: 1,
                           maxLines: 4,
@@ -76,22 +87,22 @@ class ChatInputBar extends GetView<MeetController> {
             const SizedBox(width: 8),
             // Send or Voice Button conditionally rendered
             Obx(() {
-              if (controller.isTyping.value) {
+              if (isTyping.value) {
                 return CircleAvatar(
                   backgroundColor: AppColors.primaryBlue,
                   radius: 24,
                   child: IconButton(
                     icon: const Icon(Icons.send, color: Colors.white, size: 20),
-                    onPressed: controller.sendMessage,
+                    onPressed: onSend,
                   ),
                 );
               }
               return GestureDetector(
-                onLongPressStart: (_) => controller.isRecording.value = true,
-                onLongPressEnd: (_) => controller.isRecording.value =
+                onLongPressStart: (_) => isRecording.value = true,
+                onLongPressEnd: (_) => isRecording.value =
                     false, // placeholder for actual record voice logic
                 child: Obx(() {
-                  final isRec = controller.isRecording.value;
+                  final isRec = isRecording.value;
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     width: isRec ? 56 : 48,

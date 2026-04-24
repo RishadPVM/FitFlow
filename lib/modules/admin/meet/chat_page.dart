@@ -31,7 +31,12 @@ class ChatPage extends GetView<MeetController> {
               );
             }),
           ),
-          const ChatInputBar(),
+          ChatInputBar(
+            isRecording: controller.isRecording,
+            isTyping: controller.isTyping,
+            textController: controller.textController,
+            onSend: controller.sendMessage,
+          ),
         ],
       ),
     );

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
-
 import '../../../../models/meet_models.dart';
 
 class MeetListTile extends StatelessWidget {
   final ChatConversation meet;
   final VoidCallback onTap;
 
-  const MeetListTile({
-    super.key,
-    required this.meet,
-    required this.onTap,
-  });
+  const MeetListTile({super.key, required this.meet, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +36,15 @@ class MeetListTile extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 28,
-                  backgroundColor: AppColors.secondaryGreen.withValues(alpha: 0.1),
+                  backgroundColor: AppColors.secondaryGreen.withValues(
+                    alpha: 0.1,
+                  ),
                   child: Text(
                     name.isNotEmpty ? name[0] : '?',
                     style: const TextStyle(
-                      color: AppColors.secondaryGreen, 
-                      fontWeight: FontWeight.bold, 
-                      fontSize: 20
+                      color: AppColors.secondaryGreen,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -60,7 +58,10 @@ class MeetListTile extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.success,
                         shape: BoxShape.circle,
-                        border: Border.all(color: AppColors.surfaceLight, width: 2),
+                        border: Border.all(
+                          color: AppColors.surfaceLight,
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
@@ -77,7 +78,9 @@ class MeetListTile extends StatelessWidget {
                       Expanded(
                         child: Text(
                           name,
-                          style: AppTextStyles.bodyLarge.copyWith(fontWeight: FontWeight.bold),
+                          style: AppTextStyles.bodyLarge.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -86,8 +89,12 @@ class MeetListTile extends StatelessWidget {
                       Text(
                         time,
                         style: AppTextStyles.caption.copyWith(
-                          color: hasUnread ? AppColors.primaryBlue : AppColors.textSecondary,
-                          fontWeight: hasUnread ? FontWeight.bold : FontWeight.normal,
+                          color: hasUnread
+                              ? AppColors.primaryBlue
+                              : AppColors.textSecondary,
+                          fontWeight: hasUnread
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ],
@@ -96,24 +103,38 @@ class MeetListTile extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
-                          color: AppColors.primaryBlue.withValues(alpha: 0.1),
+                          color: AppColors.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
                           role,
-                          style: AppTextStyles.caption.copyWith(color: AppColors.primaryBlue, fontSize: 10),
+                          style: AppTextStyles.caption.copyWith(
+                            color: AppColors.primary,
+                            fontSize: 10,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          lastMessage.isEmpty ? 'Tap to start chatting' : lastMessage,
+                          lastMessage.isEmpty
+                              ? 'Tap to start chatting'
+                              : lastMessage,
                           style: AppTextStyles.bodyMedium.copyWith(
-                            color: hasUnread ? AppColors.textPrimary : AppColors.textSecondary,
-                            fontWeight: hasUnread ? FontWeight.bold : FontWeight.normal,
-                            fontStyle: lastMessage.isEmpty ? FontStyle.italic : FontStyle.normal,
+                            color: hasUnread
+                                ? AppColors.textPrimary
+                                : AppColors.textSecondary,
+                            fontWeight: hasUnread
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            fontStyle: lastMessage.isEmpty
+                                ? FontStyle.italic
+                                : FontStyle.normal,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -129,7 +150,11 @@ class MeetListTile extends StatelessWidget {
                           ),
                           child: Text(
                             '${meet.unread}',
-                            style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                     ],

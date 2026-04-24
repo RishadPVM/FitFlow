@@ -13,14 +13,16 @@ import '../modules/auth/login/login_controller.dart';
 import '../modules/auth/login/login_page.dart';
 import '../modules/user/user_bottom_navigation/user_bottom_nav_page.dart';
 import '../modules/user/user_bottom_navigation/user_bottom_nav_controller.dart';
-import '../modules/user/home/home_controller.dart';
-import '../modules/user/meet/meet_controller.dart';
+import '../modules/user/home/user_home_controller.dart';
+import '../modules/user/meet/user_meet_controller.dart';
 import '../modules/user/goals/goals_controller.dart';
 import '../modules/user/profile/profile_controller.dart';
 import '../modules/user/meet/user_chat_screen.dart';
 import '../modules/role_selection/role_selection_controller.dart';
   // Modules
 import '../modules/role_selection/role_selection_page.dart';
+import '../modules/user/qr_scanner/qr_scanner_page.dart';
+import '../modules/user/qr_scanner/qr_scanner_controller.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -57,6 +59,13 @@ class AppPages {
     GetPage(
       name: AppRoutes.chatScreen,
       page: () => const UserChatScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.qrScanner,
+      page: () => const QrScannerPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<QrScannerController>(() => QrScannerController());
+      }),
     ),
     GetPage(
       name: AppRoutes.adminDashboard,

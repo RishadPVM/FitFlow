@@ -1,131 +1,177 @@
+import 'package:fitflow/modules/admin/meet/widgets/chat_bubble.dart';
+import 'package:fitflow/modules/admin/meet/widgets/chat_input_bar.dart';
+import 'package:fitflow/modules/user/meet/user_meet_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 
-class UserChatScreen extends StatelessWidget {
+class UserChatScreen extends GetView<UserMeetController> {
   const UserChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final chat = Get.arguments ?? {'name': 'Chat'};
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(chat['name'], style: AppTextStyles.h2),
-        elevation: 0,
-        backgroundColor: AppColors.surface,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: () => Get.back(),
-        ),
-      ),
+      appBar: _buildAppBar(),
       body: Column(
         children: [
-          // Quick actions
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                _buildQuickAction('Membership Price?'),
-                _buildQuickAction('Gym Timing?'),
-                _buildQuickAction('Facilities?'),
-              ],
-            ),
-          ),
-          
           Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                _buildMessageBubble(
-                  'Welcome to FitFlow! Find a gym to get started.',
-                  isMe: false,
-                ),
-              ],
-            ),
+            child: Obx(() {
+              if (controller.chatMessages.isEmpty) {
+                return _buildEmptyChat();
+              }
+              return ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                itemCount: controller.chatMessages.length,
+                itemBuilder: (context, index) {
+                  final msg = controller.chatMessages[index];
+                  return ChatBubble(message: msg);
+                },
+              );
+            }),
           ),
-          _buildMessageInput(),
+          ChatInputBar(
+            isRecording: controller.isRecording,
+            isTyping: controller.isTyping,
+            textController: controller.textController,
+            onSend: controller.sendMessage,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildQuickAction(String text) {
-    return Container(
-      margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.primaryBlue.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.primaryBlue.withValues(alpha: 0.3)),
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      elevation: 1,
+      backgroundColor: AppColors.surface,
+      leadingWidth: 40,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => Get.back(),
       ),
-      child: Text(
-        text,
-        style: AppTextStyles.bodyMedium.copyWith(color: AppColors.primaryBlue),
-      ),
-    );
-  }
+      title: Obx(() {
+        final partner = controller.currentChatPartner.value;
+        if (partner == null) return const SizedBox();
+        final contact = partner.contact;
+        final isOnline = contact.status == 'Online';
 
-  Widget _buildMessageBubble(String text, {required bool isMe}) {
-    return Align(
-      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
-        constraints: const BoxConstraints(maxWidth: 280),
-        decoration: BoxDecoration(
-          color: isMe ? AppColors.primaryBlue : AppColors.surfaceLight,
-          borderRadius: BorderRadius.circular(16).copyWith(
-            bottomRight: isMe ? const Radius.circular(0) : const Radius.circular(16),
-            bottomLeft: !isMe ? const Radius.circular(0) : const Radius.circular(16),
-          ),
-        ),
-        child: Text(
-          text,
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: isMe ? Colors.white : AppColors.textPrimary,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMessageInput() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.surfaceLight,
-        border: Border(top: BorderSide(color: AppColors.divider)),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                color: AppColors.background,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: AppColors.divider),
-              ),
-              child: TextField(
-                style: AppTextStyles.bodyMedium,
-                decoration: const InputDecoration(
-                  hintText: 'Type a message...',
-                  border: InputBorder.none,
+        return Row(
+          children: [
+            CircleAvatar(
+              radius: 18,
+              backgroundColor: AppColors.secondaryGreen.withValues(alpha: 0.1),
+              child: Text(
+                contact.name[0],
+                style: const TextStyle(
+                  color: AppColors.secondaryGreen,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    contact.name,
+                    style: AppTextStyles.bodyLarge.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      if (isOnline) ...[
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: const BoxDecoration(
+                            color: AppColors.success,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                      ],
+                      Text(
+                        isOnline ? 'Online' : 'Offline',
+                        style: AppTextStyles.caption,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      }),
+      actions: [
+        PopupMenuButton<String>(
+          icon: const Icon(Icons.more_vert),
+          color: AppColors.surfaceLight,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-          const SizedBox(width: 12),
+          onSelected: (value) {
+            if (value == 'report') {
+              // add report api call
+            } else if (value == 'block') {
+              // add block api call
+            }
+          },
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 'report',
+              child: Row(
+                children: const [
+                  Icon(Icons.report, size: 20),
+                  SizedBox(width: 10),
+                  Text("Report"),
+                ],
+              ),
+            ),
+            PopupMenuItem(
+              value: 'block',
+              child: Row(
+                children: const [
+                  Icon(Icons.block, size: 20),
+                  SizedBox(width: 10),
+                  Text("Block"),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEmptyChat() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           Container(
-            padding: const EdgeInsets.all(12),
-            decoration: const BoxDecoration(
-              color: AppColors.primaryBlue,
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: AppColors.surfaceLight,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+            child: const Icon(
+              Icons.chat_bubble_outline,
+              size: 48,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text('No messages yet', style: AppTextStyles.h3),
+          const SizedBox(height: 8),
+          Text(
+            'Say hello to start the conversation!',
+            style: AppTextStyles.bodyMedium,
           ),
         ],
       ),

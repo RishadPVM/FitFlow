@@ -1,18 +1,15 @@
 import 'package:fitflow/models/gym_model.dart';
-import 'package:flutter/material.dart';
+import 'package:fitflow/models/meet_models.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import '../../../models/meet_models.dart';
 
-class MeetController extends GetxController {
-  // Meet Home State
+class UserMeetController extends GetxController {
+  
+    // Meet Home State
   final activeMeets = <ChatConversation>[].obs;
   final searchQuery = ''.obs;
-  
-  // Available Gyms for "Add chat"
-  final availableGyms = <GymModel>[].obs;
-  final gymSearchQuery = ''.obs;
 
-  // Active Chat State
+    // Active Chat State
   final currentChatPartner = Rxn<ChatConversation>();
   final chatMessages = <ChatMessage>[].obs;
   final textController = TextEditingController();
@@ -23,13 +20,6 @@ class MeetController extends GetxController {
   void onInit() {
     super.onInit();
     _loadMeets();
-    _loadAvailableGyms();
-  }
-
-  @override
-  void onClose() {
-    textController.dispose();
-    super.onClose();
   }
 
   void _loadMeets() {
@@ -61,27 +51,15 @@ class MeetController extends GetxController {
     ];
   }
 
-  void _loadAvailableGyms() {
-    availableGyms.value = [
-      GymModel(id: 'g3', name: 'Apex Performance Center', role: 'Gym Network'),
-      GymModel(id: 'g4', name: 'Velocity Fitness', role: 'Gym Partner'),
-      GymModel(id: 'g5', name: 'Zenith Wellness, East', role: 'Gym Branch'),
-    ];
-  }
 
-  List<ChatConversation> get filteredMeets {
+
+ List<ChatConversation> get filteredMeets {
     if (searchQuery.value.trim().isEmpty) return activeMeets;
     return activeMeets.where((meet) => 
       meet.contact.name.toLowerCase().contains(searchQuery.value.toLowerCase())
     ).toList();
   }
 
-  List<GymModel> get filteredAvailableGyms {
-    if (gymSearchQuery.value.trim().isEmpty) return availableGyms;
-    return availableGyms.where((gym) => 
-      gym.name.toLowerCase().contains(gymSearchQuery.value.toLowerCase())
-    ).toList();
-  }
 
   // Actions
   void openChat(ChatConversation meet) {
@@ -174,4 +152,5 @@ class MeetController extends GetxController {
     textController.clear();
     isTyping.value = false;
   }   
+
 }

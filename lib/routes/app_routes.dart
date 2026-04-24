@@ -6,5 +6,6 @@ abstract class AppRoutes {
   
   static const String userBottomNav = '/user/dashboard';
   static const String chatScreen = '/user/chat-screen';
+  static const String qrScanner = '/user/qr-scanner';
   static const String adminDashboard = '/admin/dashboard';
 }
