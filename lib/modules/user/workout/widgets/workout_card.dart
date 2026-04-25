@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../models/workout_day_model.dart';
@@ -14,114 +13,148 @@ class WorkoutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.divider),
+        borderRadius: BorderRadius.circular(24),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.surfaceLight,
+            AppColors.surface,
+          ],
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
         ],
+        border: Border.all(
+          color: AppColors.divider.withOpacity(0.5),
+          width: 1,
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+          // Subtle background pattern or glow inside the card
+          Positioned(
+            top: -20,
+            right: -20,
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.primary.withOpacity(0.1),
               ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.flash_on, color: AppColors.primary, size: 16),
-                const SizedBox(width: 4),
-                Text(
-                  'UP NEXT',
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Text(
-                        workout.title,
-                        style: AppTextStyles.h2.copyWith(
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                    ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: AppColors.surfaceLight,
-                        borderRadius: BorderRadius.circular(8),
+                        color: AppColors.primary.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColors.primary.withOpacity(0.3)),
                       ),
-                      child: Text(
-                        workout.type,
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.local_fire_department_rounded, color: AppColors.primary, size: 14),
+                          const SizedBox(width: 6),
+                          Text(
+                            'UP NEXT',
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1.0,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    Icon(Icons.more_horiz_rounded, color: AppColors.textSecondary),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
+                Text(
+                  workout.title,
+                  style: AppTextStyles.h1.copyWith(
+                    color: AppColors.textPrimary,
+                    fontSize: 28,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  workout.type,
+                  style: AppTextStyles.bodyLarge.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _buildMetric(
-                      Icons.format_list_bulleted,
+                      Icons.format_list_bulleted_rounded,
                       '${workout.exercisesCount} Exercises',
                     ),
                     _buildMetric(
-                      Icons.timer_outlined,
+                      Icons.timer_rounded,
                       '${workout.duration} Min',
                     ),
                     _buildMetric(
-                      Icons.local_fire_department_outlined,
+                      Icons.electric_bolt_rounded,
                       '${workout.calories} kcal',
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: AppColors.background,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                const SizedBox(height: 28),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primary.withOpacity(0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
                       ),
-                      elevation: 0,
-                    ),
-                    onPressed: onStart,
-                    child: Text(
-                      'Start Workout',
-                      style: AppTextStyles.buttonText.copyWith(
-                        color: AppColors.background,
+                    ],
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: AppColors.background,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 0,
+                      ),
+                      onPressed: onStart,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Start Workout',
+                            style: AppTextStyles.buttonText.copyWith(
+                              color: AppColors.background,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Icon(Icons.arrow_forward_rounded, size: 20),
+                        ],
                       ),
                     ),
                   ),
@@ -137,12 +170,20 @@ class WorkoutCard extends StatelessWidget {
   Widget _buildMetric(IconData icon, String text) {
     return Row(
       children: [
-        Icon(icon, color: AppColors.textSecondary, size: 16),
-        const SizedBox(width: 6),
+        Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: AppColors.surfaceLight,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: AppColors.primary, size: 16),
+        ),
+        const SizedBox(width: 8),
         Text(
           text,
           style: AppTextStyles.bodyMedium.copyWith(
-            color: AppColors.textSecondary,
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],

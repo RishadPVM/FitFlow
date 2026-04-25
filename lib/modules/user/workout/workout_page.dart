@@ -1,65 +1,109 @@
+import 'dart:ui';
+
 import 'package:fitflow/common/widgets/app_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../goals/goals_flow_page.dart';
-import 'workout_controller.dart';
-import 'widgets/workout_card.dart';
-import 'widgets/week_rhythm_card.dart';
 import 'widgets/action_tile.dart';
 import 'widgets/section_header.dart';
+import 'widgets/week_rhythm_card.dart';
+import 'widgets/workout_card.dart';
+import 'workout_controller.dart';
 
 class WorkoutPage extends GetView<WorkoutController> {
   const WorkoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // If not initialized, initialize
     if (!Get.isRegistered<WorkoutController>()) {
       Get.put(WorkoutController());
     }
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Obx(() {
-          if (controller.isLoading.value) {
-            return AppLoader();
-          }
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const AppLoader();
+        }
 
-          if (!controller.onboardingDone.value) {
-            return const GoalsFlowPage();
-          }
+        if (!controller.onboardingDone.value) {
+          return const GoalsFlowPage();
+        }
 
-          return RefreshIndicator(
-            color: AppColors.primary,
-            backgroundColor: AppColors.surface,
-            onRefresh: controller.loadLocalData,
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(),
-                  const SizedBox(height: 24),
-                  _buildQuickActions(),
-                  const SizedBox(height: 24),
-                  _buildTabs(),
-                  const SizedBox(height: 24),
-                  _buildMainWorkout(),
-                  const SizedBox(height: 32),
-                  _buildWeekRhythm(),
-                  const SizedBox(height: 32),
-                  _buildLockedFeature(),
-                  const SizedBox(height: 40),
-                ],
+        return Stack(
+          children: [
+            // Premium background glow effects
+            Positioned(
+              top: -100,
+              right: -100,
+              child: Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primary.withOpacity(0.15),
+                ),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  child: const SizedBox(),
+                ),
               ),
             ),
-          );
-        }),
-      ),
+            Positioned(
+              bottom: 100,
+              left: -100,
+              child: Container(
+                width: 250,
+                height: 250,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primaryBlue.withOpacity(0.1),
+                ),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  child: const SizedBox(),
+                ),
+              ),
+            ),
+
+            // Main Content
+            SafeArea(
+              child: RefreshIndicator(
+                color: AppColors.primary,
+                backgroundColor: AppColors.surface,
+                onRefresh: controller.loadLocalData,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 16.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeader(),
+                      const SizedBox(height: 32),
+                      _buildMainWorkout(),
+                      const SizedBox(height: 32),
+                      _buildQuickActions(),
+                      const SizedBox(height: 32),
+                      _buildTabs(),
+                      const SizedBox(height: 24),
+                      _buildWeekRhythm(),
+                      const SizedBox(height: 40),
+                      _buildLockedFeature(),
+                      const SizedBox(height: 40),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 
@@ -67,20 +111,59 @@ class WorkoutPage extends GetView<WorkoutController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          'Workout',
-          style: AppTextStyles.h1.copyWith(color: AppColors.textPrimary),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Ready to train?',
+              style: AppTextStyles.bodyLarge.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Your Dashboard',
+              style: AppTextStyles.h1.copyWith(color: AppColors.textPrimary),
+            ),
+          ],
         ),
         Container(
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
             color: AppColors.surface,
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.divider),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: IconButton(
-            icon: const Icon(Icons.add, color: AppColors.primary),
+            icon: const Icon(
+              Icons.add_rounded,
+              color: AppColors.primary,
+              size: 24,
+            ),
             onPressed: () {},
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMainWorkout() {
+    if (controller.todayWorkout.value == null) return const SizedBox();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        WorkoutCard(
+          workout: controller.todayWorkout.value!,
+          onStart: controller.markWorkoutComplete,
         ),
       ],
     );
@@ -101,7 +184,7 @@ class WorkoutPage extends GetView<WorkoutController> {
         Expanded(
           child: ActionTile(
             title: 'New Routine',
-            icon: Icons.note_add_outlined,
+            icon: Icons.dashboard_customize_outlined,
             onTap: () {},
           ),
         ),
@@ -114,13 +197,14 @@ class WorkoutPage extends GetView<WorkoutController> {
       return Container(
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(12),
+          color: AppColors.surface.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.divider),
         ),
         child: Row(
           children: [
             _buildTab('This Week', 0, controller.selectedTab.value),
-            _buildTab('Routines', 1, controller.selectedTab.value),
+            _buildTab('My Routines', 1, controller.selectedTab.value),
           ],
         ),
       );
@@ -132,18 +216,19 @@ class WorkoutPage extends GetView<WorkoutController> {
     return Expanded(
       child: GestureDetector(
         onTap: () => controller.setTab(index),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(vertical: 14),
           decoration: BoxDecoration(
             color: isSelected ? AppColors.surfaceLight : Colors.transparent,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    )
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
                   ]
                 : null,
           ),
@@ -151,27 +236,12 @@ class WorkoutPage extends GetView<WorkoutController> {
           child: Text(
             title,
             style: AppTextStyles.bodyMedium.copyWith(
-              color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+              color: isSelected ? AppColors.primary : AppColors.textSecondary,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
             ),
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildMainWorkout() {
-    if (controller.todayWorkout.value == null) return const SizedBox();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SectionHeader(title: 'Today\'s Plan'),
-        WorkoutCard(
-          workout: controller.todayWorkout.value!,
-          onStart: controller.markWorkoutComplete,
-        ),
-      ],
     );
   }
 
@@ -183,16 +253,13 @@ class WorkoutPage extends GetView<WorkoutController> {
       children: [
         SectionHeader(
           title: 'Week Rhythm',
-          actionText: 'View All',
+          actionText: 'See all',
           onActionTap: () {},
         ),
         ...controller.workoutPlan.value!.days.asMap().entries.map((entry) {
           final index = entry.key + 1;
           final workoutDay = entry.value;
-          return WeekRhythmCard(
-            weekNumber: index,
-            workoutDay: workoutDay,
-          );
+          return WeekRhythmCard(weekNumber: index, workoutDay: workoutDay);
         }),
       ],
     );
@@ -200,59 +267,97 @@ class WorkoutPage extends GetView<WorkoutController> {
 
   Widget _buildLockedFeature() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(28),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.surfaceLight,
-            AppColors.surface,
+            Color(0xFF1E1E1E), // AppColors.surface
+            Color(0xFF2A2A2A), // AppColors.surfaceLight
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.05),
+            blurRadius: 20,
+            spreadRadius: 5,
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              gradient: LinearGradient(
+                colors: [AppColors.primary, AppColors.primary.withOpacity(0.7)],
+              ),
               shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primary.withOpacity(0.3),
+                  blurRadius: 15,
+                  spreadRadius: 2,
+                ),
+              ],
             ),
-            child: const Icon(Icons.star_rounded, color: AppColors.primary, size: 32),
+            child: const Icon(
+              Icons.auto_graph_rounded,
+              color: AppColors.background,
+              size: 32,
+            ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
           Text(
             'Unlock Advanced Analytics',
             style: AppTextStyles.h2.copyWith(color: AppColors.textPrimary),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Text(
-            'Get detailed insights into your muscle recovery and volume progression.',
-            style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+            'Get detailed insights into your muscle recovery, volume progression, and PR predictions.',
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textSecondary,
+              height: 1.5,
+            ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: AppColors.background,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+          const SizedBox(height: 28),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primary.withOpacity(0.2),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
                 ),
-                elevation: 0,
-              ),
-              onPressed: () {},
-              child: Text(
-                'Upgrade Now',
-                style: AppTextStyles.buttonText.copyWith(color: AppColors.background),
+              ],
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: AppColors.background,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 0,
+                ),
+                onPressed: () {},
+                child: Text(
+                  'Upgrade to Pro',
+                  style: AppTextStyles.buttonText.copyWith(
+                    color: AppColors.background,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),

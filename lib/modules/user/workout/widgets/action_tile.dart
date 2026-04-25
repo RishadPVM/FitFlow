@@ -21,28 +21,71 @@ class ActionTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
-          color: isPrimary ? AppColors.primary.withOpacity(0.1) : AppColors.surface,
-          borderRadius: BorderRadius.circular(12),
+          gradient: isPrimary
+              ? LinearGradient(
+                  colors: [
+                    AppColors.primary.withOpacity(0.2),
+                    AppColors.primary.withOpacity(0.05),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : LinearGradient(
+                  colors: [
+                    AppColors.surfaceLight,
+                    AppColors.surface,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+          borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isPrimary ? AppColors.primary : AppColors.divider,
+            color: isPrimary ? AppColors.primary.withOpacity(0.5) : AppColors.divider,
+            width: 1,
           ),
+          boxShadow: isPrimary
+              ? [
+                  BoxShadow(
+                    color: AppColors.primary.withOpacity(0.1),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  )
+                ]
+              : [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  )
+                ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              color: isPrimary ? AppColors.primary : AppColors.textPrimary,
-              size: 20,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              title,
-              style: AppTextStyles.bodyMedium.copyWith(
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: isPrimary ? AppColors.primary.withOpacity(0.2) : AppColors.background,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon,
                 color: isPrimary ? AppColors.primary : AppColors.textPrimary,
-                fontWeight: FontWeight.w600,
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Flexible(
+              child: Text(
+                title,
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: isPrimary ? AppColors.primary : AppColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
