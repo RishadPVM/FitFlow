@@ -98,7 +98,7 @@ class HistoryPage extends GetView<HistoryController> {
             child: Icon(
               Icons.directions_run_rounded,
               size: 64,
-              color: AppColors.primary.withOpacity(0.5),
+              color: AppColors.primary.withValues(alpha:0.5),
             ),
           ),
           const SizedBox(height: 24),

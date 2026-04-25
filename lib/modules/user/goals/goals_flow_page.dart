@@ -27,7 +27,7 @@ class GoalsFlowPage extends GetView<GoalsController> {
             end: Alignment.bottomCenter,
             colors: [
               AppColors.background,
-              AppColors.surface.withOpacity(0.5),
+              AppColors.surface..withValues(alpha:0.5),
               AppColors.background,
             ],
           ),

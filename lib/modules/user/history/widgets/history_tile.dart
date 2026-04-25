@@ -23,7 +23,7 @@ class HistoryTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppColors.divider.withOpacity(0.5)),
+          border: Border.all(color: AppColors.divider.withValues(alpha:0.5)),
         ),
         child: Row(
           children: [
@@ -31,7 +31,7 @@ class HistoryTile extends StatelessWidget {
               width: 56,
               height: 56,
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha:0.1),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: const Icon(Icons.fitness_center_rounded, color: AppColors.primary),

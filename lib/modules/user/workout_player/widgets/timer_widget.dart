@@ -6,11 +6,7 @@ class TimerWidget extends StatelessWidget {
   final int seconds;
   final String label;
 
-  const TimerWidget({
-    super.key,
-    required this.seconds,
-    required this.label,
-  });
+  const TimerWidget({super.key, required this.seconds, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +15,13 @@ class TimerWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.primary.withOpacity(0.5)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.15),
+            color: AppColors.primary.withValues(alpha: 0.15),
             blurRadius: 20,
             spreadRadius: 2,
-          )
+          ),
         ],
       ),
       child: Column(

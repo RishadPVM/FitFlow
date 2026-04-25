@@ -21,10 +21,10 @@ class WeekRhythmCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.divider.withOpacity(0.5)),
+        border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -59,7 +59,9 @@ class WeekRhythmCard extends StatelessWidget {
                 ),
                 Text(
                   '$weekNumber',
-                  style: AppTextStyles.h2.copyWith(color: AppColors.textPrimary),
+                  style: AppTextStyles.h2.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
                 ),
               ],
             ),
@@ -80,18 +82,30 @@ class WeekRhythmCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(Icons.timer_outlined, size: 14, color: AppColors.primary),
+                    Icon(
+                      Icons.timer_outlined,
+                      size: 14,
+                      color: AppColors.primary,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       '${workoutDay.duration} Min',
-                      style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     const SizedBox(width: 12),
-                    Icon(Icons.fitness_center_rounded, size: 14, color: AppColors.primary),
+                    Icon(
+                      Icons.fitness_center_rounded,
+                      size: 14,
+                      color: AppColors.primary,
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       '${workoutDay.exercisesCount} Ex',
-                      style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -103,7 +117,7 @@ class WeekRhythmCard extends StatelessWidget {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: const Icon(

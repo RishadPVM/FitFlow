@@ -49,7 +49,7 @@ class MiniProgressPreview extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.divider.withOpacity(0.5)),
+              border: Border.all(color: AppColors.divider.withValues(alpha:0.5)),
             ),
             child: Obx(() {
               final lastWorkout = controller.historyList.isNotEmpty 
@@ -63,14 +63,14 @@ class MiniProgressPreview extends StatelessWidget {
                     height: 64,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [AppColors.primary, AppColors.primary.withOpacity(0.7)],
+                        colors: [AppColors.primary, AppColors.primary.withValues(alpha:0.7)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primary.withOpacity(0.3),
+                          color: AppColors.primary.withValues(alpha:0.3),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),

@@ -15,10 +15,10 @@ class CalendarWidget extends GetView<HistoryController> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.divider.withOpacity(0.5)),
+        border: Border.all(color: AppColors.divider.withValues(alpha:0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha:0.2),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
@@ -145,14 +145,14 @@ class CalendarWidget extends GetView<HistoryController> {
                 shape: BoxShape.circle,
                 border: hasWorkout && !isSelected
                     ? Border.all(
-                        color: AppColors.primary.withOpacity(0.5),
+                        color: AppColors.primary.withValues(alpha:0.5),
                         width: 2,
                       )
                     : null,
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: AppColors.primary.withOpacity(0.4),
+                          color: AppColors.primary.withValues(alpha:0.4),
                           blurRadius: 8,
                           offset: const Offset(0, 2),
                         ),

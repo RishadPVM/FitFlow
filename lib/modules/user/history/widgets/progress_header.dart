@@ -27,7 +27,7 @@ class ProgressHeader extends GetView<HistoryController> {
           gradient: LinearGradient(
             colors: [
               AppColors.primary,
-              AppColors.primary.withOpacity(0.8),
+              AppColors.primary.withValues(alpha:0.8),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -35,7 +35,7 @@ class ProgressHeader extends GetView<HistoryController> {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primary.withOpacity(0.3),
+              color: AppColors.primary.withValues(alpha:0.3),
               blurRadius: 15,
               offset: const Offset(0, 8),
             ),
@@ -50,7 +50,7 @@ class ProgressHeader extends GetView<HistoryController> {
                 const SizedBox(width: 8),
                 Text(
                   'Current Streak',
-                  style: AppTextStyles.bodyLarge.copyWith(color: AppColors.background.withOpacity(0.9)),
+                  style: AppTextStyles.bodyLarge.copyWith(color: AppColors.background.withValues(alpha:0.9)),
                 ),
               ],
             ),
@@ -66,7 +66,7 @@ class ProgressHeader extends GetView<HistoryController> {
             const SizedBox(height: 4),
             Text(
               'Keep it going! 🔥',
-              style: AppTextStyles.bodyMedium.copyWith(color: AppColors.background.withOpacity(0.9)),
+              style: AppTextStyles.bodyMedium.copyWith(color: AppColors.background.withValues(alpha:0.9)),
             ),
           ],
         ),
@@ -119,10 +119,10 @@ class ProgressHeader extends GetView<HistoryController> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.divider.withOpacity(0.5)),
+        border: Border.all(color: AppColors.divider.withValues(alpha:0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha:0.15),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -134,7 +134,7 @@ class ProgressHeader extends GetView<HistoryController> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha:0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(icon, color: AppColors.primary, size: 20),

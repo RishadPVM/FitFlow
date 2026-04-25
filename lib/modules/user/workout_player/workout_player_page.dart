@@ -31,7 +31,7 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
               height: 250,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
@@ -39,7 +39,7 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
               ),
             ),
           ),
-          
+
           SafeArea(
             child: Obx(() {
               if (controller.isFinished.value) {
@@ -60,11 +60,12 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
                           const SizedBox(height: 24),
                           WorkoutProgressBar(
                             currentIndex: controller.currentExerciseIndex.value,
-                            totalCount: controller.session.value?.exercises.length ?? 1,
+                            totalCount:
+                                controller.session.value?.exercises.length ?? 1,
                             progress: controller.progress,
                           ),
                           const SizedBox(height: 40),
-                          
+
                           if (controller.isResting.value)
                             TimerWidget(
                               seconds: controller.restTimeSeconds.value,
@@ -72,7 +73,7 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
                             )
                           else
                             ExerciseCard(exercise: exercise),
-                          
+
                           const SizedBox(height: 40),
                         ],
                       ),
@@ -83,7 +84,9 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
                     child: ControlButtons(
                       isResting: controller.isResting.value,
                       onPrevious: controller.previousExercise,
-                      onSkip: controller.isResting.value ? controller.skipRest : controller.skipExercise,
+                      onSkip: controller.isResting.value
+                          ? controller.skipRest
+                          : controller.skipExercise,
                       onComplete: controller.completeExercise,
                     ),
                   ),
@@ -111,13 +114,19 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.divider),
               ),
-              child: const Icon(Icons.close_rounded, color: AppColors.textPrimary, size: 24),
+              child: const Icon(
+                Icons.close_rounded,
+                color: AppColors.textPrimary,
+                size: 24,
+              ),
             ),
           ),
-          Obx(() => Text(
-                controller.formattedWorkoutTime,
-                style: AppTextStyles.h2.copyWith(color: AppColors.textPrimary),
-              )),
+          Obx(
+            () => Text(
+              controller.formattedWorkoutTime,
+              style: AppTextStyles.h2.copyWith(color: AppColors.textPrimary),
+            ),
+          ),
           const SizedBox(width: 40), // Balance the flex
         ],
       ),
@@ -133,21 +142,30 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.emoji_events_rounded, color: AppColors.primary, size: 80),
+            child: const Icon(
+              Icons.emoji_events_rounded,
+              color: AppColors.primary,
+              size: 80,
+            ),
           ),
           const SizedBox(height: 32),
           Text(
             'Workout Complete!',
-            style: AppTextStyles.h1.copyWith(color: AppColors.textPrimary, fontSize: 32),
+            style: AppTextStyles.h1.copyWith(
+              color: AppColors.textPrimary,
+              fontSize: 32,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 12),
           Text(
             'Great job crushing today\'s routine.',
-            style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
+            style: AppTextStyles.bodyLarge.copyWith(
+              color: AppColors.textSecondary,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 48),
@@ -198,7 +216,11 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
     );
   }
 
-  Widget _buildSummaryStat({required IconData icon, required String title, required String value}) {
+  Widget _buildSummaryStat({
+    required IconData icon,
+    required String title,
+    required String value,
+  }) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -220,7 +242,9 @@ class WorkoutPlayerPage extends GetView<WorkoutPlayerController> {
           Expanded(
             child: Text(
               title,
-              style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textSecondary),
+              style: AppTextStyles.bodyLarge.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ),
           ),
           Text(

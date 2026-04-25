@@ -15,10 +15,10 @@ class ExerciseCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.divider.withOpacity(0.5)),
+        border: Border.all(color: AppColors.divider.withValues(alpha:0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha:0.2),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
@@ -40,7 +40,7 @@ class ExerciseCard extends StatelessWidget {
             child: Icon(
               Icons.fitness_center_rounded,
               size: 80,
-              color: AppColors.textSecondary.withOpacity(0.3),
+              color: AppColors.textSecondary.withValues(alpha:0.3),
             ),
           ),
           Padding(
@@ -51,7 +51,7 @@ class ExerciseCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppColors.primaryBlue.withOpacity(0.15),
+                    color: AppColors.primaryBlue.withValues(alpha:0.15),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(

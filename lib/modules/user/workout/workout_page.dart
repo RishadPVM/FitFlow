@@ -45,7 +45,7 @@ class WorkoutPage extends GetView<WorkoutController> {
                 height: 300,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.primary.withOpacity(0.15),
+                  color: AppColors.primary.withValues(alpha: 0.15),
                 ),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
@@ -61,7 +61,7 @@ class WorkoutPage extends GetView<WorkoutController> {
                 height: 250,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.primaryBlue.withOpacity(0.1),
+                  color: AppColors.primaryBlue.withValues(alpha: 0.1),
                 ),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
@@ -139,7 +139,7 @@ class WorkoutPage extends GetView<WorkoutController> {
             border: Border.all(color: AppColors.divider),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -200,7 +200,7 @@ class WorkoutPage extends GetView<WorkoutController> {
       return Container(
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: AppColors.surface.withOpacity(0.5),
+          color: AppColors.surface.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: AppColors.divider),
         ),
@@ -228,7 +228,7 @@ class WorkoutPage extends GetView<WorkoutController> {
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
+                      color: Colors.black.withValues(alpha: 0.15),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -281,10 +281,10 @@ class WorkoutPage extends GetView<WorkoutController> {
           ],
         ),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.05),
+            color: AppColors.primary.withValues(alpha: 0.05),
             blurRadius: 20,
             spreadRadius: 5,
           ),
@@ -297,12 +297,15 @@ class WorkoutPage extends GetView<WorkoutController> {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.primary, AppColors.primary.withOpacity(0.7)],
+                colors: [
+                  AppColors.primary,
+                  AppColors.primary.withValues(alpha: 0.7),
+                ],
               ),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.3),
+                  color: AppColors.primary.withValues(alpha: 0.3),
                   blurRadius: 15,
                   spreadRadius: 2,
                 ),
@@ -335,7 +338,7 @@ class WorkoutPage extends GetView<WorkoutController> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.2),
+                  color: AppColors.primary.withValues(alpha: 0.2),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),

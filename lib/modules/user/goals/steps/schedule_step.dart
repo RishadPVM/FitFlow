@@ -125,7 +125,7 @@ class ScheduleStep extends GetView<GoalsController> {
             Text(label, style: AppTextStyles.bodyLarge),
             Switch(
               value: value.value,
-              activeColor: AppColors.primary,
+              activeThumbColor: AppColors.primary,
               onChanged: (v) => value.value = v,
             ),
           ],
