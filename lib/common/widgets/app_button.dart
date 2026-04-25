@@ -1,3 +1,4 @@
+import 'package:fitflow/common/widgets/app_loader.dart';
 import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
@@ -37,9 +38,8 @@ class AppButton extends StatelessWidget {
             ? const SizedBox(
                 height: 24,
                 width: 24,
-                child: CircularProgressIndicator(
+                child: AppLoader(
                   color: AppColors.background,
-                  strokeWidth: 2.5,
                 ),
               )
             : Text(

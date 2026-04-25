@@ -1,3 +1,4 @@
+import 'package:fitflow/common/widgets/app_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -39,9 +40,7 @@ class QrScannerPage extends GetView<QrScannerController> {
           GetBuilder<QrScannerController>(
             builder: (ctrl) {
               if (!ctrl.hasPermission.value || ctrl.scannerController == null) {
-                return const Center(
-                  child: CircularProgressIndicator(color: Colors.white),
-                );
+                return AppLoader();
               }
               return MobileScanner(
                 controller: ctrl.scannerController!,

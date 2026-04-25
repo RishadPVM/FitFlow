@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../goals/goals_page.dart';
+import '../workout/workout_page.dart';
 import '../home/user_home_page.dart';
 import '../meet/user_meet_page.dart';
 import '../profile/profile_page.dart';
@@ -21,7 +21,7 @@ class UserBottomNavPage extends GetView<UserBottomNavController> {
             children: const [
               UserHomePage(),
               UserMeetPage(),
-              GoalsPage(),
+              WorkoutPage(),
               UserProfilePage(),
             ],
           ),
@@ -45,8 +45,8 @@ class UserBottomNavPage extends GetView<UserBottomNavController> {
               label: 'Meet',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.track_changes_rounded),
-              label: 'Goals',
+              icon: Icon(Icons.fitness_center_rounded),
+              label: 'Workout',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_rounded),
