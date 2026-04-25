@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/workout_plan_model.dart';
 import 'models/workout_day_model.dart';
+import '../workout_player/workout_player_page.dart';
 
 class WorkoutController extends GetxController {
   final isLoading = true.obs;
@@ -92,9 +93,8 @@ class WorkoutController extends GetxController {
     await prefs.setString('workout_plan', jsonEncode(plan.toJson()));
   }
 
-  void markWorkoutComplete() {
-    Get.snackbar('Great Job!', 'Workout marked as complete.',
-        snackPosition: SnackPosition.BOTTOM);
+  void startWorkoutSession() {
+    Get.to(() => const WorkoutPlayerPage());
   }
 
   void setTab(int index) {

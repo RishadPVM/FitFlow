@@ -12,6 +12,7 @@ import 'widgets/section_header.dart';
 import 'widgets/week_rhythm_card.dart';
 import 'widgets/workout_card.dart';
 import 'workout_controller.dart';
+import '../history/widgets/mini_progress_preview.dart';
 
 class WorkoutPage extends GetView<WorkoutController> {
   const WorkoutPage({super.key});
@@ -90,6 +91,8 @@ class WorkoutPage extends GetView<WorkoutController> {
                       const SizedBox(height: 32),
                       _buildQuickActions(),
                       const SizedBox(height: 32),
+                      const MiniProgressPreview(),
+                      const SizedBox(height: 32),
                       _buildTabs(),
                       const SizedBox(height: 24),
                       _buildWeekRhythm(),
@@ -163,7 +166,7 @@ class WorkoutPage extends GetView<WorkoutController> {
       children: [
         WorkoutCard(
           workout: controller.todayWorkout.value!,
-          onStart: controller.markWorkoutComplete,
+          onStart: controller.startWorkoutSession,
         ),
       ],
     );
