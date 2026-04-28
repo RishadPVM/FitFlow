@@ -1,204 +1,209 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/string_extensions.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../models/workout_day_model.dart';
 
-class TodayWorkoutCard extends StatelessWidget {
+class WorkoutDayCard extends StatelessWidget {
   final WorkoutPlanModel workout;
-  final VoidCallback onStart;
-
-  const TodayWorkoutCard({
+  final bool isRestDay;
+  final bool isToday;
+  final VoidCallback? onEdit;
+  final VoidCallback? onPlay;
+  final bool removeActionButton;
+  final bool isEditTap;
+  const WorkoutDayCard({
     super.key,
     required this.workout,
-    required this.onStart,
+    this.isRestDay = false,
+    this.isToday = false,
+    this.onEdit,
+    this.onPlay,
+    this.isEditTap = false,
+    this.removeActionButton = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [AppColors.surfaceLight, AppColors.surface],
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isToday
+              ? AppColors.primary
+              : AppColors.cardShadow.withValues(alpha: 0.4),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
+            color: isToday
+                ? AppColors.primary.withValues(alpha: 0.2)
+                : Colors.black.withValues(alpha: 0.15),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(
-          color: AppColors.divider.withValues(alpha: 0.5),
-          width: 1,
-        ),
       ),
-      child: Stack(
+      child: Row(
         children: [
-          // Subtle background pattern or glow inside the card
-          Positioned(
-            top: -20,
-            right: -20,
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.primary.withValues(alpha: 0.1),
+          // Week Number Badge
+          Container(
+            width: 65,
+            height: 56,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [AppColors.surfaceLight, AppColors.background],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: AppColors.divider),
+            ),
+            // child: Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Text(
+            //       workout.day.toUpperCase().substring(0, 3),
+            //       style: AppTextStyles.bodyMedium.copyWith(
+            //         color: AppColors.textSecondary,
+            //         fontSize: 10,
+            //         fontWeight: FontWeight.bold,
+            //         letterSpacing: 1,
+            //       ),
+            //     ),
+            //     Text(
+            //       workout.day.toUpperCase().substring(0, 3),
+            //       style: AppTextStyles.h2.copyWith(
+            //         color: AppColors.textPrimary,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            child: Center(
+              child: Text(
+                workout.day.name.toUpperCase().substring(0, 3),
+                style: AppTextStyles.h3.copyWith(color: AppColors.textPrimary),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
+          const SizedBox(width: 16),
+          // Workout Info
+          if (!isRestDay) ...[
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    workout.title,
+                    style: AppTextStyles.h3.copyWith(
+                      color: AppColors.textPrimary,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.timer_outlined,
+                        size: 14,
+                        color: AppColors.primary,
                       ),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: AppColors.primary.withValues(alpha: 0.3),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${workout.duration} Min',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.textSecondary,
                         ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.local_fire_department_rounded,
-                            color: AppColors.primary,
-                            size: 14,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            'UP NEXT',
-                            style: AppTextStyles.bodyMedium.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 1.0,
-                            ),
-                          ),
-                        ],
+                      const SizedBox(width: 12),
+                      Icon(
+                        Icons.fitness_center_rounded,
+                        size: 14,
+                        color: AppColors.primary,
                       ),
-                    ),
-                    Icon(
-                      Icons.more_horiz_rounded,
-                      color: AppColors.textSecondary,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  workout.title,
-                  style: AppTextStyles.h1.copyWith(
-                    color: AppColors.textPrimary,
-                    fontSize: 28,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  workout.day.name.toString().capitalizeFirst!,
-                  style: AppTextStyles.bodyLarge.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildMetric(
-                      Icons.format_list_bulleted_rounded,
-                      '${workout.exercises.length} Exercises',
-                    ),
-                    _buildMetric(
-                      Icons.timer_rounded,
-                      '${workout.duration} Min',
-                    ),
-                    _buildMetric(Icons.fitness_center, '${workout.sets} Sets'),
-                  ],
-                ),
-                const SizedBox(height: 28),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.3),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${workout.sets} Sets',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Icon(
+                        Icons.stacked_bar_chart,
+                        size: 14,
+                        color: AppColors.primary,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${workout.exercises.length} Ex',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ],
                   ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: AppColors.background,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        elevation: 0,
-                      ),
-                      onPressed: onStart,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Start Workout',
-                            style: AppTextStyles.buttonText.copyWith(
-                              color: AppColors.background,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.arrow_forward_rounded, size: 20),
-                        ],
-                      ),
+                ],
+              ),
+            ),
+          ] else ...[
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Rest Day",
+                    style: AppTextStyles.h3.copyWith(
+                      color: AppColors.textPrimary,
+                      fontSize: 18,
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 6),
+                  Text(
+                    'Active recovery is essential',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
+
+          // Action Button
+          if (!removeActionButton) ...[
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(50),
+                onTap: () {
+                  if (isEditTap) {
+                    onEdit?.call();
+                  } else if (!isRestDay) {
+                    onPlay?.call();
+                  }
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: Icon(
+                    isEditTap
+                        ? Icons.edit
+                        : isRestDay
+                        ? Icons.timer_off_rounded
+                        : Icons.play_arrow_rounded,
+                    color: AppColors.primary,
+                    size: 24,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ],
       ),
-    );
-  }
-
-  Widget _buildMetric(IconData icon, String text) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(6),
-          decoration: BoxDecoration(
-            color: AppColors.surfaceLight,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: AppColors.primary, size: 16),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          text,
-          style: AppTextStyles.bodyMedium.copyWith(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 }

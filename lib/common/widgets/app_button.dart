@@ -1,5 +1,6 @@
 import 'package:fitflow/common/widgets/app_loader.dart';
 import 'package:flutter/material.dart';
+
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 
@@ -26,7 +27,9 @@ class AppButton extends StatelessWidget {
       height: 56,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: isSecondary ? AppColors.surfaceLight : AppColors.primaryBlue,
+          backgroundColor: isSecondary
+              ? AppColors.surfaceLight
+              : AppColors.primaryBlue,
           foregroundColor: AppColors.textPrimary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -38,14 +41,12 @@ class AppButton extends StatelessWidget {
             ? const SizedBox(
                 height: 24,
                 width: 24,
-                child: AppLoader(
-                  color: AppColors.background,
-                ),
+                child: AppLoader(color: AppColors.background),
               )
             : Text(
                 text,
                 style: AppTextStyles.buttonText.copyWith(
-                  color: isSecondary ? AppColors.textPrimary : AppColors.background,
+                  color: AppColors.textPrimary,
                 ),
               ),
       ),

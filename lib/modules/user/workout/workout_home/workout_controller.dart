@@ -21,7 +21,7 @@ class WorkoutController extends GetxController {
     isLoading.value = true;
 
     await Future.delayed(const Duration(seconds: 3));
-    onboardingDone.value = false;
+    onboardingDone.value = true;
 
     // final prefs = await SharedPreferences.getInstance();
     // onboardingDone.value = prefs.getBool('onboarding_done') ?? false;
@@ -42,7 +42,7 @@ class WorkoutController extends GetxController {
     // }
 
     try {
-      workoutSession.value.addAll([
+      workoutSession.addAll([
         WorkoutPlanModel(
           day: WeekDay.monday,
           duration: 20,

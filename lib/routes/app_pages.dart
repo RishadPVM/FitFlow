@@ -1,6 +1,8 @@
 import 'package:fitflow/modules/admin/profile/finance/controller/finance_controller.dart';
 import 'package:fitflow/modules/user/workout/week_rhythm/week_rhythm_page.dart';
 import 'package:fitflow/modules/user/workout/workout_home/workout_controller.dart';
+import 'package:fitflow/modules/user/workout/week_rhythm/controller/edit_workout_controller.dart';
+import 'package:fitflow/modules/user/workout/week_rhythm/edit_workout_page.dart';
 import 'package:get/get.dart';
 
 import '../modules/admin/admin_bottom_navigation/admin_bottom_nav_page.dart';
@@ -72,6 +74,13 @@ class AppPages {
       binding: BindingsBuilder(() {
         // Get.lazyPut<WeekRhythmController>(() => WeekRhythmController());
         Get.lazyPut<WorkoutController>(() => WorkoutController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.editWorkout,
+      page: () => const EditWorkoutPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<EditWorkoutController>(() => EditWorkoutController());
       }),
     ),
     GetPage(

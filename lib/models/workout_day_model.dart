@@ -16,7 +16,7 @@ class WorkoutPlanModel {
 
   Map<String, dynamic> toJson() => {
         'title': title,
-        'day': day,
+        'day': day.name,
         'exercises': exercises,
         'duration': duration,
         'sets': sets,

@@ -11,8 +11,8 @@ import '../../../../routes/app_routes.dart';
 import '../../history/widgets/mini_progress_preview.dart';
 import '../goals/goals_flow_page.dart';
 import 'widgets/section_header.dart';
-import 'widgets/week_rhythm_card.dart';
 import 'widgets/workout_card.dart';
+import 'widgets/workout_today_card.dart';
 import 'workout_controller.dart';
 
 class WorkoutPage extends GetView<WorkoutController> {
@@ -156,7 +156,7 @@ class WorkoutPage extends GetView<WorkoutController> {
         ),
         ...controller.getThreeDayWorkout().asMap().entries.map((entry) {
           final isToday = entry.value == controller.todayWorkout.value;
-          return WeekRhythmCard(
+          return WorkoutDayCard(
             workout: entry.value,
             isToday: isToday,
             isEditTap: false,
