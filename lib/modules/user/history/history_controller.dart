@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'models/workout_history_model.dart';
+import '../../../models/workout_history_model.dart';
 
 class HistoryController extends GetxController {
   final historyList = <WorkoutHistoryModel>[].obs;

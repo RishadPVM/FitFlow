@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../workout/workout_page.dart';
+import '../workout/workout_home/workout_page.dart';
 import '../home/user_home_page.dart';
 import '../meet/user_meet_page.dart';
 import '../profile/profile_page.dart';

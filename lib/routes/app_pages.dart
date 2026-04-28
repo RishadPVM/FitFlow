@@ -1,4 +1,6 @@
 import 'package:fitflow/modules/admin/profile/finance/controller/finance_controller.dart';
+import 'package:fitflow/modules/user/workout/week_rhythm/week_rhythm_page.dart';
+import 'package:fitflow/modules/user/workout/workout_home/workout_controller.dart';
 import 'package:get/get.dart';
 
 import '../modules/admin/admin_bottom_navigation/admin_bottom_nav_page.dart';
@@ -11,18 +13,18 @@ import '../modules/admin/users/members/controller/admin_members_controller.dart'
 import '../modules/admin/users/trainers/controller/trainers_controller.dart';
 import '../modules/auth/login/login_controller.dart';
 import '../modules/auth/login/login_page.dart';
-import '../modules/user/user_bottom_navigation/user_bottom_nav_page.dart';
-import '../modules/user/user_bottom_navigation/user_bottom_nav_controller.dart';
-import '../modules/user/home/user_home_controller.dart';
-import '../modules/user/meet/user_meet_controller.dart';
-import '../modules/user/goals/goals_controller.dart';
-import '../modules/user/profile/profile_controller.dart';
-import '../modules/user/meet/user_chat_screen.dart';
 import '../modules/role_selection/role_selection_controller.dart';
-  // Modules
+// Modules
 import '../modules/role_selection/role_selection_page.dart';
-import '../modules/user/qr_scanner/qr_scanner_page.dart';
+import '../modules/user/workout/goals/goals_controller.dart';
+import '../modules/user/home/user_home_controller.dart';
+import '../modules/user/meet/user_chat_screen.dart';
+import '../modules/user/meet/user_meet_controller.dart';
+import '../modules/user/profile/profile_controller.dart';
 import '../modules/user/qr_scanner/qr_scanner_controller.dart';
+import '../modules/user/qr_scanner/qr_scanner_page.dart';
+import '../modules/user/user_bottom_navigation/user_bottom_nav_controller.dart';
+import '../modules/user/user_bottom_navigation/user_bottom_nav_page.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -56,15 +58,20 @@ class AppPages {
         Get.lazyPut<UserProfileController>(() => UserProfileController());
       }),
     ),
-    GetPage(
-      name: AppRoutes.chatScreen,
-      page: () => const UserChatScreen(),
-    ),
+    GetPage(name: AppRoutes.chatScreen, page: () => const UserChatScreen()),
     GetPage(
       name: AppRoutes.qrScanner,
       page: () => const QrScannerPage(),
       binding: BindingsBuilder(() {
         Get.lazyPut<QrScannerController>(() => QrScannerController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.weekRhythm,
+      page: () => const WeekRhythmPage(),
+      binding: BindingsBuilder(() {
+        // Get.lazyPut<WeekRhythmController>(() => WeekRhythmController());
+        Get.lazyPut<WorkoutController>(() => WorkoutController());
       }),
     ),
     GetPage(
