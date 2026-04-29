@@ -7,6 +7,7 @@ import '../../../../common/widgets/app_loader.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../routes/app_routes.dart';
+import 'controller/week_list_animation_controller.dart';
 
 class WeekRhythmPage extends GetView<WorkoutController> {
   const WeekRhythmPage({super.key});
@@ -38,33 +39,79 @@ class WeekRhythmPage extends GetView<WorkoutController> {
           children: [
             _buildProgramInfoCard(),
             Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 16.0,
-                ),
-                itemCount: controller.workoutSession.length,
-                itemBuilder: (context, index) {
-                  final day = controller.workoutSession[index];
-                  final isToday = day == controller.todayWorkout.value;
-                  return WorkoutDayCard(
-                    workout: day,
-                    isEditTap: true,
-                    isToday: isToday,
-                    onEdit: () async {
-                      final result = await Get.toNamed(
-                        AppRoutes.editWorkout,
-                        arguments: day,
-                      );
+              child: GetBuilder<WeekListAnimationController>(
+                init: WeekListAnimationController(),
+                builder: (animController) {
+                  return ListWheelScrollView.useDelegate(
+                    controller: animController.scrollController,
+                    itemExtent: 130, // Fits the WorkoutDayCard height + padding
+                    perspective: 0.003,
+                    diameterRatio: 1.8,
+                    physics: const FixedExtentScrollPhysics(),
+                    onSelectedItemChanged: animController.onSelectedItemChanged,
+                    childDelegate: ListWheelChildBuilderDelegate(
+                      childCount: controller.workoutSession.length,
+                      builder: (context, index) {
+                        final day = controller.workoutSession[index];
+                        final isToday = day == controller.todayWorkout.value;
 
-                      if (result != null) {
-                        final index = controller.workoutSession.indexOf(day);
-                        if (index != -1) {
-                          controller.workoutSession[index] = result;
-                        }
-                      }
-                    },
+                        return Obx(() {
+                          final isCenter =
+                              index == animController.selectedIndex.value;
+
+                          return AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: const EdgeInsets.symmetric(horizontal: 16),
+                            child: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 300),
+                              opacity: isCenter ? 1.0 : 0.4,
+                              child: AnimatedScale(
+                                duration: const Duration(milliseconds: 300),
+                                scale: isCenter ? 1.0 : 0.85,
+                                child: Container(
+                                  decoration: isCenter && !isToday
+                                      ? BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppColors.primary
+                                                  .withValues(alpha: 0.15),
+                                              blurRadius: 30,
+                                              spreadRadius: -10,
+                                            ),
+                                          ],
+                                        )
+                                      : null,
+                                  child: WorkoutDayCard(
+                                    workout: day,
+                                    isEditTap: true,
+                                    isToday: isToday,
+                                    onEdit: () async {
+                                      final result = await Get.toNamed(
+                                        AppRoutes.editWorkout,
+                                        arguments: day,
+                                      );
+
+                                      if (result != null) {
+                                        final editIndex = controller
+                                            .workoutSession
+                                            .indexOf(day);
+                                        if (editIndex != -1) {
+                                          controller.workoutSession[editIndex] =
+                                              result;
+                                        }
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        });
+                      },
+                    ),
                   );
                 },
               ),
