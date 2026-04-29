@@ -8,6 +8,7 @@ abstract class AppRoutes {
   static const String chatScreen = '/user/chat-screen';
   static const String qrScanner = '/user/qr-scanner';
   static const String weekRhythm = '/user/week-rhythm';
+  static const String workoutPlayer = '/user/workout-player';
   static const String editWorkout = '/user/edit-workout';
   static const String adminDashboard = '/admin/dashboard';
 }

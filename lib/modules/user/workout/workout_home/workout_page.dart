@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:fitflow/common/widgets/app_loader.dart';
-import 'package:fitflow/modules/user/workout/workout_player/workout_player_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,32 +70,30 @@ class WorkoutPage extends GetView<WorkoutController> {
             ),
 
             // Main Content
-            SafeArea(
-              child: RefreshIndicator(
-                color: AppColors.primary,
-                backgroundColor: AppColors.surface,
-                onRefresh: controller.loadLocalData,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 16.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildHeader(),
-                      const SizedBox(height: 32),
-                      _buildMainWorkout(),
-                      const SizedBox(height: 32),
-                      const MiniProgressPreview(),
-                      const SizedBox(height: 32),
-                      _buildWeekRhythm(),
-                      const SizedBox(height: 40),
-                      _buildLockedFeature(),
-                      const SizedBox(height: 40),
-                    ],
-                  ),
+            RefreshIndicator(
+              color: AppColors.primary,
+              backgroundColor: AppColors.surface,
+              onRefresh: controller.loadLocalData,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 16.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(),
+                    const SizedBox(height: 32),
+                    _buildMainWorkout(),
+                    const SizedBox(height: 32),
+                    const MiniProgressPreview(),
+                    const SizedBox(height: 32),
+                    _buildWeekRhythm(),
+                    const SizedBox(height: 40),
+                    _buildLockedFeature(),
+                    const SizedBox(height: 40),
+                  ],
                 ),
               ),
             ),
@@ -137,7 +134,7 @@ class WorkoutPage extends GetView<WorkoutController> {
       children: [
         TodayWorkoutCard(
           workout: controller.todayWorkout.value!,
-          onStart: () => Get.to(() => const WorkoutPlayerPage()),
+          onStart: () => Get.toNamed(AppRoutes.workoutPlayer),
         ),
       ],
     );

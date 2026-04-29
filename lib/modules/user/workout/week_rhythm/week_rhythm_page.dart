@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:fitflow/modules/user/workout/workout_home/widgets/workout_card.dart';
 import 'package:fitflow/modules/user/workout/workout_home/workout_controller.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class WeekRhythmPage extends GetView<WorkoutController> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.background,
         elevation: 0,
         title: Text('Week Rhythm', style: AppTextStyles.h3),
         centerTitle: true,
@@ -35,86 +37,138 @@ class WeekRhythmPage extends GetView<WorkoutController> {
           return const Center(child: AppLoader());
         }
 
-        return Column(
+        return Stack(
           children: [
-            _buildProgramInfoCard(),
-            Expanded(
-              child: GetBuilder<WeekListAnimationController>(
-                init: WeekListAnimationController(),
-                builder: (animController) {
-                  return ListWheelScrollView.useDelegate(
-                    controller: animController.scrollController,
-                    itemExtent: 130, // Fits the WorkoutDayCard height + padding
-                    perspective: 0.003,
-                    diameterRatio: 1.8,
-                    physics: const FixedExtentScrollPhysics(),
-                    onSelectedItemChanged: animController.onSelectedItemChanged,
-                    childDelegate: ListWheelChildBuilderDelegate(
-                      childCount: controller.workoutSession.length,
-                      builder: (context, index) {
-                        final day = controller.workoutSession[index];
-                        final isToday = day == controller.todayWorkout.value;
+            Positioned(
+              // top: 0,
+              bottom: 0,
+              right: -150,
+              child: Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primary.withValues(alpha: 0.10),
+                ),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                  child: const SizedBox(),
+                ),
+              ),
+            ),
 
-                        return Obx(() {
-                          final isCenter =
-                              index == animController.selectedIndex.value;
+            Column(
+              children: [
+                // SizedBox(height: 20),
+                // Container(
+                //   padding: const EdgeInsets.symmetric(
+                //     horizontal: 16.0,
+                //     vertical: 16.0,
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       IconButton(
+                //         icon: const Icon(
+                //           Icons.arrow_back_ios_new_rounded,
+                //           color: AppColors.textPrimary,
+                //           size: 20,
+                //         ),
+                //         onPressed: () => Get.back(),
+                //       ),
 
-                          return AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            margin: const EdgeInsets.symmetric(horizontal: 16),
-                            child: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 300),
-                              opacity: isCenter ? 1.0 : 0.4,
-                              child: AnimatedScale(
+                //       Expanded(
+                //         child: Center(
+                //           child: Text('Week Rhythm', style: AppTextStyles.h3),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                _buildProgramInfoCard(),
+                Expanded(
+                  child: GetBuilder<WeekListAnimationController>(
+                    init: WeekListAnimationController(),
+                    builder: (animController) {
+                      return ListWheelScrollView.useDelegate(
+                        controller: animController.scrollController,
+                        itemExtent:
+                            130, // Fits the WorkoutDayCard height + padding
+                        perspective: 0.003,
+                        diameterRatio: 1.8,
+                        physics: const FixedExtentScrollPhysics(),
+                        onSelectedItemChanged:
+                            animController.onSelectedItemChanged,
+                        childDelegate: ListWheelChildBuilderDelegate(
+                          childCount: controller.workoutSession.length,
+                          builder: (context, index) {
+                            final day = controller.workoutSession[index];
+                            final isToday =
+                                day == controller.todayWorkout.value;
+
+                            return Obx(() {
+                              final isCenter =
+                                  index == animController.selectedIndex.value;
+
+                              return AnimatedContainer(
                                 duration: const Duration(milliseconds: 300),
-                                scale: isCenter ? 1.0 : 0.85,
-                                child: Container(
-                                  decoration: isCenter && !isToday
-                                      ? BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: AppColors.primary
-                                                  .withValues(alpha: 0.15),
-                                              blurRadius: 30,
-                                              spreadRadius: -10,
-                                            ),
-                                          ],
-                                        )
-                                      : null,
-                                  child: WorkoutDayCard(
-                                    workout: day,
-                                    isEditTap: true,
-                                    isToday: isToday,
-                                    onEdit: () async {
-                                      final result = await Get.toNamed(
-                                        AppRoutes.editWorkout,
-                                        arguments: day,
-                                      );
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: AnimatedOpacity(
+                                  duration: const Duration(milliseconds: 300),
+                                  opacity: isCenter ? 1.0 : 0.4,
+                                  child: AnimatedScale(
+                                    duration: const Duration(milliseconds: 300),
+                                    scale: isCenter ? 1.0 : 0.85,
+                                    child: Container(
+                                      decoration: isCenter && !isToday
+                                          ? BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: AppColors.primary
+                                                      .withValues(alpha: 0.15),
+                                                  blurRadius: 30,
+                                                  spreadRadius: -10,
+                                                ),
+                                              ],
+                                            )
+                                          : null,
+                                      child: WorkoutDayCard(
+                                        workout: day,
+                                        isEditTap: true,
+                                        isToday: isToday,
+                                        onEdit: () async {
+                                          final result = await Get.toNamed(
+                                            AppRoutes.editWorkout,
+                                            arguments: day,
+                                          );
 
-                                      if (result != null) {
-                                        final editIndex = controller
-                                            .workoutSession
-                                            .indexOf(day);
-                                        if (editIndex != -1) {
-                                          controller.workoutSession[editIndex] =
-                                              result;
-                                        }
-                                      }
-                                    },
+                                          if (result != null) {
+                                            final editIndex = controller
+                                                .workoutSession
+                                                .indexOf(day);
+                                            if (editIndex != -1) {
+                                              controller
+                                                      .workoutSession[editIndex] =
+                                                  result;
+                                            }
+                                          }
+                                        },
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          );
-                        });
-                      },
-                    ),
-                  );
-                },
-              ),
+                              );
+                            });
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         );

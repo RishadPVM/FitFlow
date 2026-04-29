@@ -28,6 +28,7 @@ class FitFlowApp extends StatelessWidget {
       initialBinding: InitialBinding(),
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
+      
       defaultTransition: Transition.cupertino,
     );
   }
