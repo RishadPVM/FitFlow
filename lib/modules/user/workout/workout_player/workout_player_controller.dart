@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../../models/workout_history_model.dart';
 import '../../history/history_controller.dart';
-import 'models/exercise_model.dart';
-import 'models/workout_session_model.dart';
+import '../../../../models/exercise_model.dart';
+import '../../../../models/workout_session_model.dart';
 
 class WorkoutPlayerController extends GetxController {
   final session = Rxn<WorkoutSessionModel>();

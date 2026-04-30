@@ -1,3 +1,4 @@
+import 'package:fitflow/models/exercise_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +9,8 @@ class EditWorkoutController extends GetxController {
 
   final titleController = TextEditingController();
 
-  final exercises = <TextEditingController>[].obs;
+  final exercises = <ExerciseModel>[].obs;
+
   final isRestDay = false.obs;
 
   @override
@@ -22,8 +24,6 @@ class EditWorkoutController extends GetxController {
         title: 'Unknown',
         day: WeekDay.monday,
         exercises: [],
-        duration: 45,
-        sets: 10,
       );
     }
     _initializeData();
@@ -33,18 +33,18 @@ class EditWorkoutController extends GetxController {
     titleController.text = originalWorkout.title;
     isRestDay.value = originalWorkout.title.toLowerCase().contains('rest');
     for (var ex in originalWorkout.exercises) {
-      exercises.add(TextEditingController(text: ex));
+      exercises.add(ex);
     }
   }
 
 
-  void addExercise() {
-    exercises.add(TextEditingController(text: ''));
+  void addSelectedExercise(ExerciseModel exercise) {
+    exercises.add(exercise);
   }
 
   void removeExercise(int index) {
     if (index >= 0 && index < exercises.length) {
-      exercises[index].dispose();
+      // exercises[index].;
       exercises.removeAt(index);
     }
   }
@@ -65,10 +65,11 @@ class EditWorkoutController extends GetxController {
     final newWorkout = WorkoutPlanModel(
       title: isRestDay.value ? 'Rest Day' : titleController.text,
       day: originalWorkout.day,
-      exercises: isRestDay.value ? [] : exercises.map((e) => e.text).toList(),
-      duration: isRestDay.value ? 0 : originalWorkout.duration,
-      sets: isRestDay.value ? 0 : originalWorkout.sets,
+      exercises: isRestDay.value ? [] : exercises,
+      // id: originalWorkout.id,
+      // imageUrl: originalWorkout.imageUrl,
     );
+
     // Depending on architecture, either update a global state, call an API service, 
     // or just return to previous screen with the updated data.
     Get.back(result: newWorkout);
@@ -77,9 +78,6 @@ class EditWorkoutController extends GetxController {
   @override
   void onClose() {
     titleController.dispose();
-    for (var controller in exercises) {
-      controller.dispose();
-    }
     super.onClose();
   }
 }

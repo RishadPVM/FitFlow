@@ -10,5 +10,6 @@ abstract class AppRoutes {
   static const String weekRhythm = '/user/week-rhythm';
   static const String workoutPlayer = '/user/workout-player';
   static const String editWorkout = '/user/edit-workout';
+  static const String progress = '/user/progress';
   static const String adminDashboard = '/admin/dashboard';
 }

@@ -49,7 +49,7 @@ class WorkoutInfoCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
         color: AppColors.surface.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isHighlighted
               ? AppColors.primary.withValues(alpha: 0.3)

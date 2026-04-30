@@ -1,4 +1,6 @@
 import 'package:fitflow/modules/admin/profile/finance/controller/finance_controller.dart';
+import 'package:fitflow/modules/user/history/history_controller.dart';
+import 'package:fitflow/modules/user/history/history_page.dart';
 import 'package:fitflow/modules/user/workout/week_rhythm/week_rhythm_page.dart';
 import 'package:fitflow/modules/user/workout/workout_home/workout_controller.dart';
 import 'package:fitflow/modules/user/workout/week_rhythm/controller/edit_workout_controller.dart';
@@ -76,6 +78,13 @@ class AppPages {
       binding: BindingsBuilder(() {
         // Get.lazyPut<WeekRhythmController>(() => WeekRhythmController());
         Get.lazyPut<WorkoutController>(() => WorkoutController());
+      }),
+    ),
+    GetPage(
+      name: AppRoutes.progress,
+      page: () => const HistoryPage(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<HistoryController>(() => HistoryController());
       }),
     ),
     GetPage(

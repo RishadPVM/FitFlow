@@ -17,6 +17,16 @@ class TodayWorkoutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int totalSets = workout.exercises.fold<int>(
+      0,
+      (sum, exercise) => sum + exercise.sets,
+    );
+    final int totalReps = workout.exercises.fold<int>(
+      0,
+      (sum, exercise) => sum + exercise.reps,
+    );
+    final int totalExercises = workout.exercises.length;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
@@ -119,13 +129,10 @@ class TodayWorkoutCard extends StatelessWidget {
                   children: [
                     _buildMetric(
                       Icons.format_list_bulleted_rounded,
-                      '${workout.exercises.length} Exercises',
+                      '$totalExercises Ex',
                     ),
-                    _buildMetric(
-                      Icons.timer_rounded,
-                      '${workout.duration} Min',
-                    ),
-                    _buildMetric(Icons.fitness_center, '${workout.sets} Sets'),
+                    _buildMetric(Icons.timer_outlined, '$totalReps reps'),
+                    _buildMetric(Icons.fitness_center, '$totalSets Sets'),
                   ],
                 ),
                 const SizedBox(height: 28),

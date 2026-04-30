@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fitflow/models/exercise_model.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/workout_day_model.dart';
@@ -45,51 +46,275 @@ class WorkoutController extends GetxController {
       workoutSession.addAll([
         WorkoutPlanModel(
           day: WeekDay.monday,
-          duration: 20,
-          sets: 17,
-          exercises: ['Upper Chest + Delts + Triceps'],
+          exercises: [
+            ExerciseModel(
+              id: '1',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '2',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '3',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+          ],
           title: 'Push A',
         ),
         WorkoutPlanModel(
           day: WeekDay.tuesday,
-          duration: 20,
-          sets: 17,
-          exercises: ['Upper Chest + Delts + Triceps'],
+          exercises: [
+            ExerciseModel(
+              id: '1',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '2',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '3',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+          ],
           title: 'Push A',
         ),
         WorkoutPlanModel(
           day: WeekDay.wednesday,
-          duration: 20,
-          sets: 17,
-          exercises: ['Upper Chest + Delts + Triceps'],
+          exercises: [
+            ExerciseModel(
+              id: '1',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '2',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '3',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+          ],
           title: 'Push A',
         ),
         WorkoutPlanModel(
           day: WeekDay.thursday,
-          duration: 20,
-          sets: 17,
-          exercises: ['Upper Chest + Delts + Triceps'],
+          exercises: [
+            ExerciseModel(
+              id: '1',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '2',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '3',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+          ],
           title: 'Push A',
         ),
         WorkoutPlanModel(
           day: WeekDay.friday,
-          duration: 20,
-          sets: 17,
-          exercises: ['Upper Chest + Delts + Triceps'],
+          exercises: [
+            ExerciseModel(
+              id: '1',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '2',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '3',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+          ],
           title: 'Push A',
         ),
         WorkoutPlanModel(
           day: WeekDay.saturday,
-          duration: 20,
-          sets: 17,
-          exercises: ['Upper Chest + Delts + Triceps'],
+          exercises: [
+            ExerciseModel(
+              id: '1',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '2',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '3',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+          ],
           title: 'Push A',
         ),
         WorkoutPlanModel(
           day: WeekDay.sunday,
-          duration: 20,
-          sets: 17,
-          exercises: ['Upper Chest + Delts + Triceps'],
+          exercises: [
+            ExerciseModel(
+              id: '1',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '2',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+            ExerciseModel(
+              id: '3',
+              name: 'Push A',
+              imageUrl:
+                  'https://images.unsplash.com/photo-1599658808286-e1ecdc0d6a15?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              sets: 3,
+              reps: 12,
+              duration: 60,
+              restTime: 30,
+              muscle: 'chest',
+            ),
+          ],
           title: 'Push A',
         ),
       ]);

@@ -179,7 +179,7 @@ class WeekRhythmPage extends GetView<WorkoutController> {
   Widget _buildProgramInfoCard() {
     int totalDuration = controller.workoutSession.fold<int>(
       0,
-      (sum, d) => sum + d.duration,
+      (sum, d) => sum + d.exercises.map((e) => e.duration).reduce((a, b) => a + b),
     );
 
     return Container(

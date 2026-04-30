@@ -25,6 +25,11 @@ class WorkoutDayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final int totalSets = workout.exercises.fold<int>(0, (sum, exercise) => sum + exercise.sets);
+    final int totalReps = workout.exercises.fold<int>(0, (sum, exercise) => sum + exercise.reps);
+    final int totalExercises = workout.exercises.length;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
@@ -61,26 +66,7 @@ class WorkoutDayCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: AppColors.divider),
             ),
-            // child: Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text(
-            //       workout.day.toUpperCase().substring(0, 3),
-            //       style: AppTextStyles.bodyMedium.copyWith(
-            //         color: AppColors.textSecondary,
-            //         fontSize: 10,
-            //         fontWeight: FontWeight.bold,
-            //         letterSpacing: 1,
-            //       ),
-            //     ),
-            //     Text(
-            //       workout.day.toUpperCase().substring(0, 3),
-            //       style: AppTextStyles.h2.copyWith(
-            //         color: AppColors.textPrimary,
-            //       ),
-            //     ),
-            //   ],
-            // ),
+           
             child: Center(
               child: Text(
                 workout.day.name.toUpperCase().substring(0, 3),
@@ -106,13 +92,13 @@ class WorkoutDayCard extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        Icons.timer_outlined,
+                        Icons.fitness_center_rounded,
                         size: 14,
                         color: AppColors.primary,
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '${workout.duration} Min',
+                        '$totalReps reps',
                         style: AppTextStyles.bodyMedium.copyWith(
                           color: AppColors.textSecondary,
                         ),
@@ -125,7 +111,7 @@ class WorkoutDayCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '${workout.sets} Sets',
+                        '$totalSets Sets',
                         style: AppTextStyles.bodyMedium.copyWith(
                           color: AppColors.textSecondary,
                         ),
@@ -138,7 +124,7 @@ class WorkoutDayCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '${workout.exercises.length} Ex',
+                        '$totalExercises Ex',
                         style: AppTextStyles.bodyMedium.copyWith(
                           color: AppColors.textSecondary,
                         ),

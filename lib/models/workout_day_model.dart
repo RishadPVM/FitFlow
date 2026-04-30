@@ -1,25 +1,26 @@
+import 'package:fitflow/models/exercise_model.dart';
+
 class WorkoutPlanModel {
   final String title;
   final WeekDay day;
-  final List<String> exercises;
-  final int duration;
-  final int sets;
-
+  final List<ExerciseModel> exercises;
+  // final int duration;
+  // final int sets;
 
   WorkoutPlanModel({
     required this.title,
     required this.day,
     required this.exercises,
-    required this.duration,
-    required this.sets,
+    // required this.duration,
+    // required this.sets,
   });
 
   Map<String, dynamic> toJson() => {
         'title': title,
         'day': day.name,
         'exercises': exercises,
-        'duration': duration,
-        'sets': sets,
+        // 'duration': duration,
+        // 'sets': sets,
 
       };
 
@@ -27,8 +28,8 @@ class WorkoutPlanModel {
         title: json['title'],
         day: json['day'],
         exercises: json['exercises'],
-        duration: json['duration'],
-        sets: json['sets'],
+        // duration: json['duration'],
+        // sets: json['sets'],
       );
 }
 

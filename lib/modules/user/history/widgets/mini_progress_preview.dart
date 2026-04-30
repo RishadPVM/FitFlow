@@ -1,5 +1,7 @@
+import 'package:fitflow/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../history_controller.dart';
@@ -13,7 +15,7 @@ class MiniProgressPreview extends StatelessWidget {
     if (!Get.isRegistered<HistoryController>()) {
       Get.put(HistoryController());
     }
-    
+
     final controller = Get.find<HistoryController>();
 
     return Column(
@@ -27,7 +29,8 @@ class MiniProgressPreview extends StatelessWidget {
               style: AppTextStyles.h2.copyWith(color: AppColors.textPrimary),
             ),
             TextButton(
-              onPressed: () => Get.to(() => const HistoryPage()),
+              // onPressed: () => Get.to(() => const HistoryPage()),
+              onPressed: () => Get.toNamed(AppRoutes.progress),
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.primary,
                 padding: EdgeInsets.zero,
@@ -36,7 +39,9 @@ class MiniProgressPreview extends StatelessWidget {
               ),
               child: Text(
                 'See All',
-                style: AppTextStyles.bodyMedium.copyWith(color: AppColors.primary),
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.primary,
+                ),
               ),
             ),
           ],
@@ -49,11 +54,13 @@ class MiniProgressPreview extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.divider.withValues(alpha:0.5)),
+              border: Border.all(
+                color: AppColors.divider.withValues(alpha: 0.5),
+              ),
             ),
             child: Obx(() {
-              final lastWorkout = controller.historyList.isNotEmpty 
-                  ? controller.historyList.last 
+              final lastWorkout = controller.historyList.isNotEmpty
+                  ? controller.historyList.last
                   : null;
 
               return Row(
@@ -63,14 +70,17 @@ class MiniProgressPreview extends StatelessWidget {
                     height: 64,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [AppColors.primary, AppColors.primary.withValues(alpha:0.7)],
+                        colors: [
+                          AppColors.primary,
+                          AppColors.primary.withValues(alpha: 0.7),
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primary.withValues(alpha:0.3),
+                          color: AppColors.primary.withValues(alpha: 0.3),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -80,10 +90,17 @@ class MiniProgressPreview extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.local_fire_department_rounded, color: AppColors.background, size: 20),
+                        const Icon(
+                          Icons.local_fire_department_rounded,
+                          color: AppColors.background,
+                          size: 20,
+                        ),
                         Text(
                           '${controller.streak.value}',
-                          style: AppTextStyles.h3.copyWith(color: AppColors.background, height: 1.0),
+                          style: AppTextStyles.h3.copyWith(
+                            color: AppColors.background,
+                            height: 1.0,
+                          ),
                         ),
                       ],
                     ),
@@ -95,30 +112,41 @@ class MiniProgressPreview extends StatelessWidget {
                       children: [
                         Text(
                           'Current Streak',
-                          style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         if (lastWorkout != null) ...[
                           Text(
                             'Last: ${lastWorkout.name}',
-                            style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textPrimary),
+                            style: AppTextStyles.bodyLarge.copyWith(
+                              color: AppColors.textPrimary,
+                            ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             '${lastWorkout.calories} kcal • ${lastWorkout.duration ~/ 60}m',
-                            style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
                           ),
                         ] else ...[
                           Text(
                             'No workouts yet',
-                            style: AppTextStyles.bodyLarge.copyWith(color: AppColors.textPrimary),
+                            style: AppTextStyles.bodyLarge.copyWith(
+                              color: AppColors.textPrimary,
+                            ),
                           ),
                         ],
                       ],
                     ),
                   ),
-                  const Icon(Icons.chevron_right_rounded, color: AppColors.textSecondary),
+                  const Icon(
+                    Icons.chevron_right_rounded,
+                    color: AppColors.textSecondary,
+                  ),
                 ],
               );
             }),
