@@ -29,7 +29,6 @@ class MiniProgressPreview extends StatelessWidget {
               style: AppTextStyles.h2.copyWith(color: AppColors.textPrimary),
             ),
             TextButton(
-              // onPressed: () => Get.to(() => const HistoryPage()),
               onPressed: () => Get.toNamed(AppRoutes.progress),
               style: TextButton.styleFrom(
                 foregroundColor: AppColors.primary,
