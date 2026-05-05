@@ -1,3 +1,4 @@
+import 'package:fitflow/modules/role_selection/role_selection_controller.dart';
 import 'package:fitflow/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class LoginController extends GetxController {
   Future<void> signIn() async {
     isLoading.value = true;
     try {
-      if (currentRole.value == 'user') {
+      if (currentRole.value == UserRole.user.name) {
         // Example: Google Sign In
         try {
           // final GoogleSignInAccount? account = await _googleSignIn.signIn();
@@ -30,11 +31,11 @@ class LoginController extends GetxController {
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
         // await _storage.write('token', 'user_mock_token');
         Get.offAllNamed(AppRoutes.userBottomNav);
-      } else if (currentRole.value == 'admin') {
+      } else if (currentRole.value == UserRole.admin.name) {
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
         // await _storage.write('token', 'admin_mock_token');
         Get.offAllNamed(AppRoutes.adminDashboard);
-      } else {
+      } else if (currentRole.value == UserRole.trainer.name) {
         // Trainer route
         await Future.delayed(const Duration(seconds: 1)); // Mock Network
         Get.back(); // Mock return

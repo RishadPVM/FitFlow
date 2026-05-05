@@ -1,29 +1,11 @@
+import 'package:fitflow/core/constants/app_image.dart';
+import 'package:fitflow/modules/role_selection/widgets/role_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import 'role_selection_controller.dart';
-import 'widgets/role_carousel_card.dart';
-
-class GridTexturePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.white.withOpacity(0.04)
-      ..style = PaintingStyle.fill;
-    
-    const spacing = 24.0;
-    for (double x = 0; x < size.width; x += spacing) {
-      for (double y = 0; y < size.height; y += spacing) {
-        canvas.drawCircle(Offset(x, y), 1.5, paint);
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
 
 class RoleSelectionPage extends GetView<RoleSelectionController> {
   const RoleSelectionPage({super.key});
@@ -34,47 +16,37 @@ class RoleSelectionPage extends GetView<RoleSelectionController> {
       backgroundColor: AppColors.background,
       body: Stack(
         children: [
-          // Background Texture (Dotted Grid)
+          // Background Image
           Positioned.fill(
-            child: CustomPaint(
-              painter: GridTexturePainter(),
-            ),
+            child: Image.asset(AppImages.roleSelectionImage, fit: BoxFit.cover),
           ),
-          
-          // Dynamic Radial Gradient Glow
-          Obx(() {
-            // Glow color changes slightly based on selected role
-            final isUser = controller.highlightedRole.value == 'user';
-            final glowColor = isUser 
-                ? AppColors.primary.withOpacity(0.15)
-                : AppColors.primaryBlue.withOpacity(0.1);
-                
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
+
+          // Dark Gradient Overlay for readability
+          Positioned.fill(
+            child: Container(
               decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: const Alignment(0.0, 0.2),
-                  radius: 1.2,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   colors: [
-                    glowColor,
-                    AppColors.background.withOpacity(0.8),
+                    AppColors.background.withValues(alpha: 0.5),
+                    AppColors.background.withValues(alpha: 0.6),
                     AppColors.background,
                   ],
                   stops: const [0.0, 0.5, 1.0],
                 ),
               ),
-            );
-          }),
-
+            ),
+          ),
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 48),
-                
+                const SizedBox(height: 32),
+
                 // Header
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -82,73 +54,88 @@ class RoleSelectionPage extends GetView<RoleSelectionController> {
                         "FitFlow",
                         style: AppTextStyles.h1.copyWith(
                           color: AppColors.primary,
-                          letterSpacing: 1.2,
+                          letterSpacing: 1.5,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        "Choose your path.",
+                        "Welcome to GymOS",
                         style: AppTextStyles.h2.copyWith(
                           color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        "Swipe to explore roles",
+                        "Select your role to get started",
                         style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.textSecondary.withOpacity(0.7),
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     ],
                   ),
                 ),
-                
-                const Spacer(flex: 1),
-                
-                // Carousel
-                SizedBox(
-                  height: 480, // Fixed height for carousel cards
-                  child: PageView.builder(
-                    controller: controller.pageController,
-                    onPageChanged: controller.onPageChanged,
+
+                // const SizedBox(height: 48),
+                const Spacer(),
+
+                // Role List
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                      vertical: 16.0,
+                    ),
                     physics: const BouncingScrollPhysics(),
-                    itemCount: controller.roles.length,
-                    itemBuilder: (context, index) {
-                      final role = controller.roles[index];
-                      
-                      return Obx(() {
-                        final isSelected = controller.currentIndex.value == index;
-                        return RoleCarouselCard(
-                          role: role,
-                          isSelected: isSelected,
-                          onSelect: () => controller.selectRole(role.id),
-                        );
-                      });
-                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        primaryRoleCard(UserRole.user),
+                        const SizedBox(height: 32),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Colors.white.withValues(alpha: 0.1),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                              ),
+                              child: Text(
+                                "PROFESSIONALS",
+                                style: AppTextStyles.bodyMedium.copyWith(
+                                  color: AppColors.textSecondary,
+                                  letterSpacing: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Colors.white.withValues(alpha: 0.1),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(child: secondaryRoleCard(UserRole.admin)),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: secondaryRoleCard(UserRole.trainer),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                
-                const Spacer(flex: 2),
-                
-                // Bottom Page Indicators
-                Obx(() => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(controller.roles.length, (index) {
-                    final isSelected = controller.currentIndex.value == index;
-                    return AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      height: 6,
-                      width: isSelected ? 24 : 6,
-                      decoration: BoxDecoration(
-                        color: isSelected ? AppColors.primary : AppColors.divider,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                    );
-                  }),
-                )),
-                
                 const SizedBox(height: 48),
               ],
             ),

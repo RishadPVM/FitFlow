@@ -1,145 +1,133 @@
+import 'dart:ui';
+
+import 'package:fitflow/modules/role_selection/role_selection_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 
-class RoleCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final IconData icon;
-  final bool isPrimary;
-  final bool isSelected;
-  final VoidCallback onTap;
-  final String ctaText;
+Widget primaryRoleCard(UserRole role) {
+  final controller = Get.find<RoleSelectionController>();
+  return Obx(() {
+    final isSelected = controller.highlightedRole.value == role.name;
 
-  const RoleCard({
-    super.key,
-    required this.title,
-    required this.description,
-    required this.icon,
-    required this.isPrimary,
-    required this.isSelected,
-    required this.onTap,
-    required this.ctaText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    // Primary cards have a subtle glow/shadow and primary color accents when selected
-    final cardColor = isSelected
-        ? (isPrimary ? AppColors.surfaceLight : AppColors.surfaceLight)
-        : AppColors.surface;
-        
-    final borderColor = isSelected
-        ? AppColors.primary
-        : AppColors.divider;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: EdgeInsets.all(isPrimary ? 24 : 16),
-        decoration: BoxDecoration(
-          color: cardColor,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: borderColor,
-            width: isSelected ? 2 : 1,
-          ),
-          boxShadow: isSelected && isPrimary
-              ? [
-                  BoxShadow(
-                    color: AppColors.primary.withOpacity(0.15),
-                    blurRadius: 20,
-                    spreadRadius: 2,
-                    offset: const Offset(0, 4),
-                  )
-                ]
-              : [
-                  const BoxShadow(
-                    color: AppColors.cardShadow,
-                    blurRadius: 10,
-                    offset: Offset(0, 4),
-                  )
-                ],
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+      decoration: BoxDecoration(
+        color: AppColors.surface.withValues(alpha: isSelected ? 0.9 : 0.6),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isSelected
+              ? AppColors.primary
+              : Colors.white.withValues(alpha: 0.1),
+          width: isSelected ? 2 : 1,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: isSelected ? AppColors.primary.withOpacity(0.1) : AppColors.background,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    icon,
-                    color: isSelected ? AppColors.primary : AppColors.textSecondary,
-                    size: isPrimary ? 32 : 24,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: isPrimary ? AppTextStyles.h2 : AppTextStyles.h3,
-                      ),
-                      if (!isPrimary) ...[
-                        const SizedBox(height: 4),
-                        Text(
-                          description,
-                          style: AppTextStyles.bodyMedium,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-                if (isSelected)
-                  Icon(
-                    Icons.check_circle,
-                    color: AppColors.primary,
-                    size: isPrimary ? 28 : 24,
-                  ),
-              ],
-            ),
-            if (isPrimary) ...[
-              const SizedBox(height: 16),
-              Text(
-                description,
-                style: AppTextStyles.bodyMedium.copyWith(height: 1.5),
-              ),
-            ],
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : AppColors.surfaceLight,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text(
-                    ctaText,
-                    style: AppTextStyles.buttonText.copyWith(
-                      color: isSelected ? AppColors.background : AppColors.textPrimary,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: InkWell(
+            onTap: () => controller.selectRole(role.name),
+            borderRadius: BorderRadius.circular(24),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  // Icon
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? AppColors.primary.withValues(alpha: 0.2)
+                          : Colors.white.withValues(alpha: 0.05),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.person_rounded,
+                      color: isSelected ? AppColors.primary : Colors.white70,
+                      size: 26,
                     ),
                   ),
-                ),
+                  const SizedBox(width: 20),
+                  // Text details
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "I'm a user",
+                          style: AppTextStyles.h2.copyWith(
+                            color: isSelected
+                                ? AppColors.textPrimary
+                                : Colors.white70,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          "i am ready to be fit",
+                          style: AppTextStyles.bodyMedium.copyWith(
+                            color: AppColors.textSecondary,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
-  }
+  });
+}
+
+Widget secondaryRoleCard(UserRole role) {
+  final controller = Get.find<RoleSelectionController>();
+  return Obx(() {
+    final isSelected = controller.highlightedRole.value == role.name;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+        decoration: BoxDecoration(
+          color: AppColors.surface.withValues(alpha: isSelected ? 0.9 : 0.6),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected
+                ? AppColors.primary
+                : Colors.white.withValues(alpha: 0.1),
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: InkWell(
+          onTap: () => controller.selectRole(role.name),
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 24.0,
+            ),
+            child: Text(
+              role.name,
+              textAlign: TextAlign.center,
+              style: AppTextStyles.h3.copyWith(
+                color: isSelected ? AppColors.textPrimary : Colors.white70,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  });
 }
