@@ -102,8 +102,8 @@ class AppPages {
       }),
     ),
     GetPage(
-      name: AppRoutes.adminDashboard,
-      page: () => const AdminBottomNavigation(),
+      name: AppRoutes.gymOwnerDashboard,
+      page: () => const GymOwnerBottomNavigation(),
       binding: BindingsBuilder(() {
         Get.lazyPut<AdminBottomNavController>(() => AdminBottomNavController());
         // Sub-modules

@@ -29,3 +29,16 @@ class UserModel {
     );
   }
 }
+
+
+// add dummy data
+
+
+final UserModel dummyUser = UserModel(
+  id: '1',
+  name: 'John Doe',
+  email: 'JohnDoe@gmail.com',
+  plan: 'Premium',
+  status: 'Active',
+);
+

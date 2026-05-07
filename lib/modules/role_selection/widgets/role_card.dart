@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:fitflow/core/constants/ennum.dart';
 import 'package:fitflow/modules/role_selection/role_selection_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

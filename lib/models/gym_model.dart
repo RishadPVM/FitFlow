@@ -11,3 +11,13 @@ class GymModel {
     this.status = 'Offline',
   });
 }
+
+
+// dummy data for gym model
+
+final GymModel dummyGym = GymModel(
+  id: '1',
+  name: 'Gym Owner',
+  role: 'Gym Owner',
+  status: 'Offline',
+);

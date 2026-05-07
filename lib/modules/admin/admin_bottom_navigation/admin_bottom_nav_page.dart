@@ -9,8 +9,8 @@ import '../overview/overview_page.dart';
 import '../users/admin_users_view.dart';
 import 'controller/admin_bottom_nav_controller.dart';
 
-class AdminBottomNavigation extends GetView<AdminBottomNavController> {
-  const AdminBottomNavigation({super.key});
+class GymOwnerBottomNavigation extends GetView<AdminBottomNavController> {
+  const GymOwnerBottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {

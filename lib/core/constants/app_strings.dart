@@ -11,10 +11,10 @@ class AppStrings {
   static const String roleAdmin = 'Continue as Gym Admin';
   static const String roleTrainer = 'Continue as Trainer';
   
-  static const String signIn = 'Sign In';
-  static const String signInWithGoogle = 'Sign in with Google';
-  static const String adminLogin = 'Admin Login';
-  static const String trainerLogin = 'Trainer Login';
+  // static const String signIn = 'Sign In';
+  // static const String signInWithGoogle = 'Sign in with Google';
+  // static const String adminLogin = 'Admin Login';
+  // static const String trainerLogin = 'Trainer Login';
   
   static const String welcomeBack = 'Welcome Back';
   static const String emailHint = 'Email Address';

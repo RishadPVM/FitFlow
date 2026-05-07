@@ -33,3 +33,16 @@ class TrainerModel {
     );
   }
 }
+
+
+
+// dummy data for trainer model
+
+final TrainerModel dummyTrainer = TrainerModel(
+  id: '1',
+  name: 'Trainer Doe',
+  email: 'Trainer@gmail.com',
+  specialization: 'Fitness',
+  rating: 4.5,
+  status: 'Active',
+);

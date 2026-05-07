@@ -17,7 +17,7 @@ class ApiConstants {
   static const String manageUsers = '/admin/users';
   static const String manageTrainers = '/admin/trainers';
 
-  // Timeouts
+  // // Timeouts
   static const int connectTimeout = 15000; // ms
-  static const int receiveTimeout = 15000; // ms
+ static const int receiveTimeout = 15000; // ms
 }

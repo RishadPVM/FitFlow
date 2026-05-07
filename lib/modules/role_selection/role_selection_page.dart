@@ -1,4 +1,5 @@
 import 'package:fitflow/core/constants/app_image.dart';
+import 'package:fitflow/core/constants/ennum.dart';
 import 'package:fitflow/modules/role_selection/widgets/role_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -125,7 +126,7 @@ class RoleSelectionPage extends GetView<RoleSelectionController> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(child: secondaryRoleCard(UserRole.admin)),
+                            Expanded(child: secondaryRoleCard(UserRole.gymOwner)),
                             const SizedBox(width: 16),
                             Expanded(
                               child: secondaryRoleCard(UserRole.trainer),

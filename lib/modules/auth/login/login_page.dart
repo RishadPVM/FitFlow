@@ -1,6 +1,6 @@
 import 'package:fitflow/core/constants/app_image.dart';
+import 'package:fitflow/core/constants/ennum.dart';
 import 'package:fitflow/core/theme/app_colors.dart';
-import 'package:fitflow/modules/role_selection/role_selection_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +15,7 @@ class LoginPage extends GetView<LoginController> {
 
   String _getIllustrationPath(String role) {
     if (role == UserRole.user.name) return AppImages.loginUser;
-    if (role == UserRole.admin.name) return AppImages.loginGym;
+    if (role == UserRole.gymOwner.name) return AppImages.loginGym;
     return AppImages.loginTrainer;
   }
 
@@ -57,7 +57,6 @@ class LoginPage extends GetView<LoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-               
                 const SizedBox(height: 16),
 
                 // Header
@@ -66,26 +65,13 @@ class LoginPage extends GetView<LoginController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(
-                        () => Text(
-                          controller.currentRole.value == UserRole.user.name
-                              ? AppStrings.signIn
-                              : (controller.currentRole.value ==
-                                        UserRole.admin.name
-                                    ? AppStrings.adminLogin
-                                    : AppStrings.trainerLogin),
-                          style: AppTextStyles.h1.copyWith(
-                            color: AppColors.primary,
-                            letterSpacing: 1.5,
-                          ),
-                        ),
-                      ),
                       const SizedBox(height: 8),
                       Text(
                         AppStrings.welcomeBack,
-                        style: AppTextStyles.h2.copyWith(
+                        style: AppTextStyles.h1.copyWith(
                           color: AppColors.textPrimary,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -213,7 +199,6 @@ class LoginPage extends GetView<LoginController> {
                               ),
                             );
                           } else {
-                            // Professional (Admin/Trainer) Login Section
                             final isTrainer =
                                 controller.currentRole.value ==
                                 UserRole.trainer.name;
@@ -222,7 +207,6 @@ class LoginPage extends GetView<LoginController> {
                               padding: const EdgeInsets.all(24),
                               child: Column(
                                 children: [
-                                  // Icon and text context
                                   Container(
                                     padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
